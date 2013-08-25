@@ -122,6 +122,7 @@ INSTALLED_APPS = (
     'floppyforms',
     'tastypie',
     'debug_toolbar',
+    'registration',
 
 
 )
@@ -164,3 +165,7 @@ except ImportError:
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,
 }
+
+ACCOUNT_ACTIVATION_DAYS = 3
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025

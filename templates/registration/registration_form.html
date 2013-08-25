@@ -1,0 +1,47 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<h1>Register for an Account</h1>
+{% if form.non_field_errors %}
+    <div class="alert-box alert">
+        {{ form.non_field_errors }}
+        <a href="#" class="close">&times;</a>
+    </div>
+{% endif %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div id="username" class="{% if form.username.errors %}error{% endif %}">
+            <label for="{{ form.username.auto_id }}">{{ form.username.label }}:</label>
+            {% if form.username.errors %}
+                <span class="alert label">{{ form.username.errors|striptags }}</span>
+            {% endif %}
+            {{ form.username }}
+        </div>
+
+        <div id="email" class="{% if form.email.errors %}error{% endif %}">
+            <label for="{{ form.email.auto_id }}">{{ form.email.label }}:</label>
+            {% if form.email.errors %}
+                <span class="alert label">{{ form.email.errors|striptags }}</span>
+            {% endif %}
+            {{ form.email }}
+        </div>
+
+        <div id="password1" class="{% if form.password1.errors %}error{% endif %}">
+            <label for="{{ form.password1.auto_id }}">{{ form.password1.label }}:</label>
+            {% if form.password1.errors %}
+                <span class="alert label">{{ form.password1.errors|striptags }}</span>
+            {% endif %}
+            {{ form.password1 }}
+        </div>
+
+        <div id="password2" class="{% if form.password2.errors %}error{% endif %}">
+            <label for="{{ form.password2.auto_id }}">{{ form.password2.label }}:</label>
+            {% if form.password2.errors %}
+                <span class="alert label">{{ form.password2.errors|striptags }}</span>
+            {% endif %}
+            {{ form.password2 }}
+        </div>
+
+        <button class="button expand" type="submit">Submit</button>
+    </form>
+{% endblock content %}
