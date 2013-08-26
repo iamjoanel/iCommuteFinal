@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'registration',
 
-
+    'accounts',
 )
 
 # A sample logging configuration. The only tangible logging

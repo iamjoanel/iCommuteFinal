@@ -4,7 +4,7 @@
 <h1>Register for an Account</h1>
 {% if form.non_field_errors %}
     <div class="alert-box alert">
-        {{ form.non_field_errors }}
+        {{ form.non_field_errors|striptags }}
         <a href="#" class="close">&times;</a>
     </div>
 {% endif %}

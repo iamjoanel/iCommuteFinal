@@ -3,6 +3,10 @@ from django.conf.urls import patterns, include, url
 urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
 )
+
+urlpatterns += patterns('',
+    url(r'^accounts/profile/$', 'accounts.views.user_panel', name='user_panel'),
+)
 # Examples:
 # url(r'^$', 'iCommute.views.home', name='home'),
 # url(r'^iCommute/', include('iCommute.foo.urls')),

@@ -14,8 +14,10 @@
 
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/app.css' %}" />
 
         <script type="text/javascript" src="{% static 'js/vendor/custom.modernizr.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/vendor/jquery.js' %}"></script>
     </head>
 
     <body>
@@ -25,6 +27,7 @@
 
             {% endblock content %}
         </div>
+        {% include "includes/main-footer.html" %}
     <script>
         document.write('<script src=' +
             ('__proto__' in {} ? '{% static "foundation/js/vendor/zepto" %}' : '{% static "foundation/js/vendor/jquery" %}') +

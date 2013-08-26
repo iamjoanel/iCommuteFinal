@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Report(models.Model):
-    post = models.CharField(max_length=200)
+    content = models.CharField(max_length=200)
     reporter = models.ForeignKey(User)
     post_date = models.DateTimeField(auto_now_add=True)
 

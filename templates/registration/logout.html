@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <div class="panel">
+        <center>
+            <h1>Logged Out!</h1>
+
+            <p>
+                Successfully Logged Out!<br>
+                You can <a href="{% url 'auth_login' %}">Login Again</a><br>
+                or <br>
+                <a href="#" class="button secondary">Return to the Home Page</a>
+            </p>
+        </center>
+    </div>
+{% endblock content %}

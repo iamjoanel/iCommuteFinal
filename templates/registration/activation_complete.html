@@ -1,5 +1,12 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-    <h1>Activation Complete</h1>
+    <div class="panel"><center>
+        <h1>Activation Complete</h1>
+        <p>
+            You have successfully activated your account!
+            Login to get Started!
+        </p>
+        <a href="{% url 'auth_login' %}" class="button">Login</a>
+    </center></div>
 {% endblock content %}

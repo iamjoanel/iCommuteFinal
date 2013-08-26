@@ -1,0 +1,29 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    <script>
+        $(document).ready(function(){
+            alert("asdas");
+        });
+    </script>
+    <div class="row">
+        <h1>{{ user.username }}<small>({{ user.email }})</small></h1>
+        <hr>
+        <div class="small-3 columns panel">
+            {{ report_form.content }}
+            <ul class="side-nav">
+                <li><a href="#">Link 1</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Link 2</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Link 3</a></li>
+            </ul>
+        </div>
+        <div class="small-9 columns">
+            {% block user_content %}
+
+            {% endblock user_content %}
+        </div>
+
+    </div>
+{% endblock content %}
