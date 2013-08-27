@@ -15,10 +15,11 @@
         <ul class="right">
                 {% if user.is_authenticated %}
                     <li class="has-dropdown">
-                        <a href="{% url 'auth_logout' %}">{{ user.username }}</a>
+                        <a href="#">{{ user.username }}</a>
                         <ul class="dropdown">
-                            <li><a href="#">Change Password</a></li>
-                            <li><a href="#">Logout</a></li>
+                            <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'auth_logout' %}">Logout</a></li>
                         </ul>
                     </li>
                 {% else %}
