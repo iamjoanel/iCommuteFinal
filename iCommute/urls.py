@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^fare/', include('fare.urls')),
 )
 
 urlpatterns += patterns('',

@@ -1,0 +1,12 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+    <div id="wrap">
+        <form action="" method="post" class="vertical">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="green" type="submit">Submit</button>
+            <a href="{% url 'fare_home' %}" class="button red square">Cancel</a>
+        </form>
+    </div>
+{% endblock content %}

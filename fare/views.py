@@ -21,7 +21,7 @@ def add_fare(request, template="fare/fare-form.html"):
     else:
         form = FareForm()
 
-    return render_to_response(template, locals(), RequestContext(RequestContext))
+    return render_to_response(template, locals(), RequestContext(request))
 
 
 class DeleteFareView(DeleteView):
@@ -30,6 +30,7 @@ class DeleteFareView(DeleteView):
 
     def get_success_url(self):
         return reverse('fare_home')
+
 
 def edit_fare(request, fare_id, template="fare/fare-form.html"):
     fare = get_object_or_404(Fare, pk=fare_id)
@@ -45,4 +46,9 @@ def edit_fare(request, fare_id, template="fare/fare-form.html"):
     else:
         form = FareForm(instance=fare)
 
-    return render_to_response(request, locals(), RequestContext(request))
+    return render_to_response(template, locals(), RequestContext(request))
+
+
+def home(request, template="fare/home.html"):
+    fares = Fare.objects.all()
+    return render_to_response(template, locals(), RequestContext(request))

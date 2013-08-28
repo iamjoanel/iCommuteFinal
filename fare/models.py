@@ -2,7 +2,7 @@ from django.db import models
 
 
 class Fare(models.Model):
-    mode = models.CharField(unique=True)
+    mode = models.CharField(unique=True, max_length=50)
     base = models.DecimalField(max_digits=5, decimal_places=2)
     increment = models.DecimalField(max_digits=5, decimal_places=2)
     created = models.DateTimeField(auto_now_add=True)

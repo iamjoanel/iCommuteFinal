@@ -17,11 +17,24 @@
         <script type="text/javascript" src="{% static 'js/vendor/jquery.js' %}"></script>
         <script src="{% static 'admin/js/kickstart.js' %}"></script>
         <link rel="stylesheet" href="{% static 'admin/css/kickstart.css' %}" media="all">
+        <link rel="stylesheet" href="{% static 'admin/css/style.css' %}" media="all" />
 
     </head>
 
     <body>
+        {% include "includes/admin-nav.html" %}
+        <div class="grid flex">
+            {% if messages %}
+                <section id="messages">
+                    {% for message in messages %}
+                        <div class="notice {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<a href="#close" class="icon-remove"></a></div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+            {% block content %}
 
+            {% endblock content %}
+        </div>
     </body>
 
 </html>

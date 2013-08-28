@@ -1,0 +1,172 @@
+/*
+	99Lime.com HTML KickStart by Joshua Gatcke
+	style.css
+
+*/
+
+/*---------------------------------
+	IMPORTS
+-----------------------------------*/
+@import url(http://fonts.googleapis.com/css?family=Arimo:400,700);
+
+/*---------------------------------
+	OVERRIDES
+-----------------------------------*/
+h1,h2,h3,h4,h5,h6{
+	font-family: "Arimo", arial, verdana, sans-serif;
+	font-weight:normal;
+}
+
+thead th,
+tbody th{
+	font-family: "Arimo", arial, verdana, sans-serif;
+}
+
+button,
+a.btn,
+input[type="submit"],
+input[type="reset"],
+input[type="button"]{
+	font-family: "Arimo", arial, verdana, sans-serif;
+}
+
+.menu{
+	font-family: "Arimo", arial, verdana, sans-serif;
+}
+
+blockquote{
+	font-family: "Arimo", arial, verdana, sans-serif;
+}
+
+/*---------------------------------
+	LAYOUT
+-----------------------------------*/
+body{
+	margin     :0;
+	padding    :0 0 0 0;
+
+	background :#efefef url(../css/img/gray_jean.png);
+	font       :normal 0.9em/150% 'Arimo', arial, verdana, sans-serif;
+	color      :#000;
+	text-shadow: 0px 0px 1px transparent; /* google font pixelation fix */
+}
+
+#wrap{
+	width     :100%;
+	margin    :30px auto 30px auto;
+	padding   :0 2%;
+
+	background:#fff;
+	border    :1px solid #ccc;
+}
+
+
+#footer{
+	position   : relative;
+	top        :0;
+	left       :0;
+
+	margin     :0;
+	padding    :20px;
+
+	background :#fff;
+	font-size  :0.8em;
+	color      :#999;
+	text-align :center;
+	text-shadow:0px 1px 1px #fff;
+	border-top :1px solid #ddd;
+}
+
+	#link-top{
+		display:none;
+	}
+
+/* NAV BAR*/
+.navbar{
+	position  :fixed;
+	top       :0;
+	left      :0;
+	z-index   :1000;
+
+	width     : 100%;
+
+	background:#000;
+	color     :#fff;
+}
+
+	.navbar #logo{
+		position       :absolute;
+		top            :0;
+		right          :0;
+
+		padding        :0.5em 1em;
+
+		font-size      : 1.7em;
+		color          :#efefef;
+		text-decoration:none;
+	}
+
+	.navbar span{
+		color:#86dc00;
+	}
+
+
+	.navbar ul{
+		display:inline-block;
+
+		margin :0;
+		padding:0;
+	}
+
+		.navbar li{
+			display        :inline-block;
+
+			margin         :0;
+			padding        :0;
+
+			list-style-type:0;
+		}
+
+		.navbar li a{
+			display        :inline-block;
+
+			padding        :1em 1.3em;
+
+			font-size      : 1.2em;
+			color          :#efefef;
+			line-height    :100%;
+			text-decoration:none;
+			text-transform : uppercase;
+		}
+
+.callout{
+	display    :block;
+
+	padding    :3em 0;
+
+	background :#4598ef;/*#86dc00;*/
+	color      :#fff;
+	text-align : center;
+	text-shadow:0px 1px 3px rgba(0,0,0,0.2);
+	box-shadow :inset 0px 0px 10px rgba(0,0,0,0.2);
+}
+	.callout + div.grid{margin-top:50px;}
+	 a.callout{cursor:pointer;}
+	 .callout i.icon-4x{font-size:6em;}
+	 .callout h4{margin-bottom:30px;}
+	 .callout-top{margin:50px 0 0 0;}
+	 .callout p{margin-bottom:0;}
+	 .callout .button{margin-top:10px;}
+	 .callout.green{background:#19ad0b;/*#86dc00;*/}
+
+#mc_embed_signup{
+	padding:30px 0;
+}
+
+#ui-preview{
+	display:block;
+
+	margin :30px 0;
+
+	border :5px solid #ddd;
+}

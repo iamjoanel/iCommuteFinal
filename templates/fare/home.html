@@ -1,0 +1,40 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+    {% if fares %}
+        <table class="stripped tight sortable" cellspacing="0" cellpadding="0" id="wrap">
+            <thead>
+                <tr>
+                    <th>Mode</th>
+                    <th>Base</th>
+                    <th>Increment</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                    <th><i class="icon-edit"></i></th>
+                    <th><i class="icon-trash"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in fares %}
+                    <tr>
+                        <td>{{ f.mode }}</td>
+                        <td>Php {{ f.base }}</td>
+                        <td>Php {{ f.increment }}</td>
+                        <td>{{ f.created }}</td>
+                        <td>{{ f.edited }}</td>
+                        <td><a href="{% url 'edit_fare' f.id %}"><i class="icon-edit"></i></a></td>
+                        <td><a href="{% url 'delete_fare' f.id %}"><i class="icon-trash"></i></a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{% url 'add_fare' %}" class="tooltip-right" title="Add Fare"><i class="icon-plus-sign icon-2x"></i></a>
+    {% else %}
+        <div class="col_12" style="margin-top:100px;">
+            <h1 class="center">
+                <p><i class="icon-warning-sign icon-4x"></i></p>
+                Oooops Seems to be Empty
+        </h1>
+        </div>
+    {% endif %}
+{% endblock content %}

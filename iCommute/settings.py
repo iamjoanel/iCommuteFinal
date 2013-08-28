@@ -127,6 +127,7 @@ INSTALLED_APPS = (
 
     'accounts',
     'public',
+    'fare',
 )
 
 # A sample logging configuration. The only tangible logging
