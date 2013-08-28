@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, user-scalable=false;" />
+
+        <title>
+            iCommute &middot; Administration Site
+            {% if title %}
+                 &middot; {{ title }}
+            {% endif %}
+        </title>
+
+        <script type="text/javascript" src="{% static 'js/vendor/jquery.js' %}"></script>
+        <script src="{% static 'admin/js/kickstart.js' %}"></script>
+        <link rel="stylesheet" href="{% static 'admin/css/kickstart.css' %}" media="all">
+
+    </head>
+
+    <body>
+
+    </body>
+
+</html>
