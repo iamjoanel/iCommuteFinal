@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'registration',
 
     'accounts',
+    'public',
 )
 
 # A sample logging configuration. The only tangible logging

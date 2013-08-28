@@ -7,6 +7,10 @@ urlpatterns = patterns('',
 urlpatterns += patterns('',
     url(r'^accounts/profile/$', 'accounts.views.user_panel', name='user_panel'),
 )
+
+urlpatterns += patterns('public.views',
+    url(r'^$', 'home', name='home'),
+)
 # Examples:
 # url(r'^$', 'iCommute.views.home', name='home'),
 # url(r'^iCommute/', include('iCommute.foo.urls')),
