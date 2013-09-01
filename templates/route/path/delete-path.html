@@ -1,0 +1,26 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+<div id='wrap' style="margin-top:100px;" class="center">
+    <h1>
+        <p><i class="icon-exclamation-sign icon-3x"></i></p>
+            Delete Path
+    </h1>
+    <p>
+        Are you sure you want to Delete this path:
+        <ul>
+            <li>Mode: <strong>{{ path.mode }}</strong></li>
+            <li>Origin Point:<strong> {{ path.origin_point }}</strong></li>
+            <li>Destination Point:<strong> {{ path.destination_point }}</strong></li>
+            <li>Distance: <strong>{{ path.distance }} KM</strong></li>
+            <li>Cost: <strong>Php {{ path.cost }}</strong></li>
+            <li>Time: <strong>{{ path.time }}</strong></li>
+        </ul>
+    </p>
+    <form action="{% url 'delete_path' pk=path.id %}" method="POST">
+        {% csrf_token %}
+        <button class="green large" type="submit">Delete</button>
+        <a href="{% url 'path_home' %}" class="button red large">Cancel</a>
+    </form>
+</div>
+{% endblock content %}

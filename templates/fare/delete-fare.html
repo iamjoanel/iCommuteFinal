@@ -1,5 +1,23 @@
 {% extends "base/base-admin.html" %}
 
 {% block content %}
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Esse, quo, quidem ex ad aliquam facere quam quaerat quasi modi officiis laudantium voluptatum praesentium illo. Possimus fuga culpa voluptate reiciendis optio.
+<div id='wrap' style="margin-top:100px;" class="center">
+    <h1>
+        <p><i class="icon-exclamation-sign icon-3x"></i></p>
+            Delete Fare
+    </h1>
+    <p>
+        Are you sure you want to Delete this fare:
+        <ul>
+            <li>Mode: <strong>{{ fare.mode }}</strong></li>
+            <li>Base Amount: <strong>Php {{ fare.base }}</strong></li>
+            <li>Increment Amount: <strong>Php {{ fare.increment }}</strong></li>
+        </ul>
+    </p>
+    <form action="{% url 'delete_fare' pk=fare.id %}" method="POST">
+        {% csrf_token %}
+        <button class="green large" type="submit">Delete</button>
+        <a href="{% url 'fare_home' %}" class="button red large">Cancel</a>
+    </form>
+</div>
 {% endblock content %}

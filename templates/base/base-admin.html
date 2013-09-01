@@ -5,10 +5,10 @@
     <head>
 
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, user-scalable=false;" />
+        <meta name="viewport" content="width=device-width" />
 
         <title>
-            iCommute &middot; Administration Site
+            iCommute|Administration Site
             {% if title %}
                  &middot; {{ title }}
             {% endif %}
@@ -18,23 +18,18 @@
         <script src="{% static 'admin/js/kickstart.js' %}"></script>
         <link rel="stylesheet" href="{% static 'admin/css/kickstart.css' %}" media="all">
         <link rel="stylesheet" href="{% static 'admin/css/style.css' %}" media="all" />
-
+        <script src="{% static 'admin/js/OpenLayers.js' %}"></script>
     </head>
 
     <body>
         {% include "includes/admin-nav.html" %}
         <div class="grid flex">
-            {% if messages %}
-                <section id="messages">
-                    {% for message in messages %}
-                        <div class="notice {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<a href="#close" class="icon-remove"></a></div>
-                    {% endfor %}
-                </section>
-            {% endif %}
+            {% include "includes/messages.html" %}
             {% block content %}
 
             {% endblock content %}
         </div>
+        {% include "includes/admin-footer.html" %}
     </body>
 
 </html>

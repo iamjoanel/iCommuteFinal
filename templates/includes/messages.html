@@ -1,0 +1,7 @@
+{% if messages %}
+    <section id="messages">
+        {% for message in messages %}
+            <div class="notice {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<a href="#close" class="icon-remove"></a></div>
+        {% endfor %}
+    </section>
+{% endif %}

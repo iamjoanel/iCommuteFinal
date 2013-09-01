@@ -1,5 +1,14 @@
 <ul class="menu">
-    <li><a href="#">Item</a></li>
-    <li><a href="#">Item</a></li>
-    <li><a href="#">Item</a></li>
+    <li><a href="#">Route Management</a>
+        <ul>
+            <li><a href="{% url 'route_home' %}">Routes</a></li>
+            <li><a href="{% url 'path_home' %}">Paths</a></li>
+            <li><a href="{% url 'train_path_home' %}">Train Paths</a></li>
+        </ul>
+    </li>
+
+    <li><a href="{% url 'fare_home' %}">Fare</a></li>
+    <li class="right">
+        <a href="#">Logout</a>
+    </li>
 </ul>

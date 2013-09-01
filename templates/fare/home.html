@@ -2,7 +2,9 @@
 
 {% block content %}
     {% if fares %}
-        <table class="stripped tight sortable" cellspacing="0" cellpadding="0" id="wrap">
+    <div id="wrap">
+    <h1 class="center"><i class="icon-money"></i> Fare Management</h1>
+        <table class="stripped tight sortable" cellspacing="0" cellpadding="0">
             <thead>
                 <tr>
                     <th>Mode</th>
@@ -22,19 +24,29 @@
                         <td>Php {{ f.increment }}</td>
                         <td>{{ f.created }}</td>
                         <td>{{ f.edited }}</td>
-                        <td><a href="{% url 'edit_fare' f.id %}"><i class="icon-edit"></i></a></td>
-                        <td><a href="{% url 'delete_fare' f.id %}"><i class="icon-trash"></i></a></td>
+                        <td>
+                            <a href="{% url 'edit_fare' f.id %}"><i class="icon-edit"></i></a>
+                        </td>
+                        <td>
+                            <a href="{% url 'delete_fare' f.id %}"><i class="icon-trash"></i></a>
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
-        <a href="{% url 'add_fare' %}" class="tooltip-right" title="Add Fare"><i class="icon-plus-sign icon-2x"></i></a>
+        <a href="{% url 'add_fare' %}" class="tooltip-right" title="Add Fare"><i class="icon-plus-sign icon-large"></i></a>
+        </div>
     {% else %}
         <div class="col_12" style="margin-top:100px;">
             <h1 class="center">
-                <p><i class="icon-warning-sign icon-4x"></i></p>
-                Oooops Seems to be Empty
-        </h1>
+                <p><i class=" icon-warning-sign icon-4x"></i></p>
+                Seems to be Empty <br>
+            </h1>
+            <p class="center">
+                You should <b><a href="{% url 'add_fare' %}">add a fare!</a></b>
+                They are used to compute for Path Costs!
+            </p>
         </div>
     {% endif %}
+
 {% endblock content %}

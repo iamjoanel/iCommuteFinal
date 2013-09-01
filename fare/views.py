@@ -9,7 +9,7 @@ from .forms import FareForm
 from .models import Fare
 
 
-def add_fare(request, template="fare/fare-form.html"):
+def add_fare(request, template="fare/fare-form.html", title="Add Fare"):
     if request.method == 'POST':
         form = FareForm(request.POST)
         if form.is_valid():
@@ -25,14 +25,14 @@ def add_fare(request, template="fare/fare-form.html"):
 
 
 class DeleteFareView(DeleteView):
-    mode = Fare
+    model = Fare
     template_name = 'fare/delete-fare.html'
 
     def get_success_url(self):
         return reverse('fare_home')
 
 
-def edit_fare(request, fare_id, template="fare/fare-form.html"):
+def edit_fare(request, fare_id, template="fare/fare-form.html", title="Edit Fare"):
     fare = get_object_or_404(Fare, pk=fare_id)
 
     if request.method == 'POST':
@@ -49,6 +49,6 @@ def edit_fare(request, fare_id, template="fare/fare-form.html"):
     return render_to_response(template, locals(), RequestContext(request))
 
 
-def home(request, template="fare/home.html"):
+def home(request, template="fare/home.html", title="Fare Management"):
     fares = Fare.objects.all()
     return render_to_response(template, locals(), RequestContext(request))
