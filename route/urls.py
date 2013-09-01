@@ -1,6 +1,6 @@
 from django.conf.urls import (patterns, url)
 
-from .views import DeletePathView
+from .views import (DeletePathView, DeleteTrainPathView)
 
 urlpatterns = patterns('route.views',
     url(r'^$', 'route_home', name="route_home"),
@@ -12,6 +12,10 @@ urlpatterns = patterns('route.views',
     url(r'^path/edit_path/(?P<pk>\d+)/$', 'edit_path', name="edit_path"),
     url(r'^path/delete_path/(?P<pk>\d+)/$', DeletePathView.as_view(), name="delete_path"),
 
+    url(r'^train_path/$', 'train_path_home', name="train_path_home"),
+    url(r'^train_path/add_train_path/$', 'add_train_path', name="add_train_path"),
+    url(r'^train_path/edit_train_path/(?P<pk>\d+)/$', 'edit_train_path', name="edit_train_path"),
+    url(r'^train_path/delete_train_path/(?P<pk>\d+)/$', DeleteTrainPathView.as_view(), name="delete_train_path"),
 )
 
 
