@@ -16,7 +16,7 @@
         <ul class="right">
                 {% if user.is_authenticated %}
                     <li class="has-dropdown">
-                        <a href="#">{{ user.username }}</a>
+                        <a href="{% url 'user_panel' %}">{{ user.username }}</a>
                         <ul class="dropdown">
                             <li><a href="{% url 'auth_password_change' %}">Change Password</a></li>
                             <li class="divider"></li>

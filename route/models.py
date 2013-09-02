@@ -64,6 +64,7 @@ class TrainPath(models.Model):
     class Meta:
         verbose_name = ('TrainPath')
         verbose_name_plural = ('TrainPaths')
+        db_table = "train_paths"
 
     def __unicode__(self):
         return "From %s To %s via Train" % (self.origin_station, self.destination_station)
@@ -75,19 +76,21 @@ class TrainPath(models.Model):
 class Route(models.Model):
     origin = models.CharField(max_length=50)
     destination = models.CharField(max_length=50)
-    origin_city = models.CharField(max_length=50)
-    destination_city = models.CharField(max_length=50)
-    total_distance = models.DecimalField(max_digits=5, decimal_places=2)
-    total_cost = models.DecimalField(max_digits=5, decimal_places=2)
+    origin_city = models.CharField(max_length=50, blank=True)
+    destination_city = models.CharField(max_length=50, blank=True)
+    total_distance = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    total_cost = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     path = models.ManyToManyField(Path, blank=True)
     train_path = models.ManyToManyField(TrainPath, blank=True)
     created_by = models.ForeignKey(User)
+    is_approved = models.BooleanField(default=False, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     edited = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name = ('Route')
         verbose_name_plural = ('Routes')
+        db_table = "routes"
 
 
     def __unicode__(self):
