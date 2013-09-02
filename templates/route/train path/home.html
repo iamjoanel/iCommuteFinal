@@ -21,8 +21,8 @@
                 <tbody>
                         {% for p in train_path %}
                         <tr>
-                            <td>{{ p.origin_station }}</td>
-                            <td>{{ p.destination_station }}</td>
+                            <td>{{ p.origin_station|title }}</td>
+                            <td>{{ p.destination_station|title }}</td>
                             <td>{{ p.distance }} KM</td>
                             <td>Php {{ p.cost }}</td>
                             <td>{{ p.time|time:"H:i:s" }}</td>
@@ -56,7 +56,7 @@
             <h1 class="center">
                 <p><i class=" icon-warning-sign icon-4x"></i></p>
                 There are no Paths <br>
-                <a href="{% url 'add_path' %}">Add some here!</a>
+                <a href="{% url 'add_train_path' %}">Add some here!</a>
             </h1>
         </div>
     {% endif %}

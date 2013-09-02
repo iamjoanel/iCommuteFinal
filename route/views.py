@@ -7,8 +7,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import (TrainPathForm, PathForm, RouteForm)
 from .models import (TrainPath, Path, Route)
-from .utils import (calculate_cost, calculate_train_cost)
-
+from .utils import (calculate_cost, calculate_train_cost, distance_total, cost_total)
 
 def route_home(request, template="route/route/home.html", title="Route Management"):
 
@@ -25,8 +24,94 @@ def route_home(request, template="route/route/home.html", title="Route Managemen
 
     return render_to_response(template, locals(), RequestContext(request))
 
-# Path Views
-def path_home(request, template="route/path/home.html", title="Route Management"):
+
+def add_route(request, template="route/route/route-form.html", title="Add Route"):
+    if request.method == 'POST':
+        form = RouteForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            origin = instance.origin.split(',')
+            destination = instance.destination.split(',')
+
+            try:
+                x = origin[1]
+                y = destination[1]
+            except IndexError:
+                messages.add_message(request, messages.ERROR, "No Origin City or Destination City")
+                form = RouteForm(request.POST, instance=instance)
+                return render_to_response(template, locals(), RequestContext(request))
+
+            if x and y:
+                instance.origin = origin[0]
+                instance.origin_city = origin[1].lstrip()
+                instance.destination = destination[0]
+                instance.destination_city = destination[1].lstrip()
+
+            instance.save()
+            form.save_m2m()
+            instance.total_distance = distance_total(instance)
+            instance.total_cost = cost_total(instance)
+            instance.save()
+
+            messages.add_message(request, messages.SUCCESS, 'Route added successfully!')
+            return redirect('route_home')
+        else:
+            messages.add_message(request, messages.ERROR, ''.join(
+                form.non_field_errors()))
+    else:
+        form = RouteForm()
+    return render_to_response(template, locals(), RequestContext(request))
+
+
+class DeleteRouteView(DeleteView):
+    model = Route
+    template_name = 'route/route/delete-route.html'
+
+    def get_success_url(self):
+        return reverse('route_home')
+
+
+def edit_route(request, pk, template="route/route/route-form.html", title="Edit Route"):
+    route_object = get_object_or_404(Route, pk=pk)
+    if request.method == 'POST':
+        form = RouteForm(request.POST, instance=route_object)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            origin = instance.origin.split(',')
+            destination = instance.destination.split(',')
+
+            try:
+                x = origin[1]
+                y = destination[1]
+            except IndexError:
+                messages.add_message(request, messages.ERROR, "No Origin City or Destination City")
+                form = RouteForm(request.POST, instance=instance)
+                return render_to_response(template, locals(), RequestContext(request))
+
+            if x and y:
+                instance.origin = origin[0]
+                instance.origin_city = origin[1].lstrip()
+                instance.destination = destination[0]
+                instance.destination_city = destination[1].lstrip()
+
+            instance.save()
+            form.save_m2m()
+            instance.total_distance = distance_total(instance)
+            instance.total_cost = cost_total(instance)
+            instance.save()
+
+            messages.add_message(request, messages.SUCCESS, 'Route added successfully!')
+            return redirect('route_home')
+        else:
+            messages.add_message(request, messages.ERROR, ''.join(
+                form.non_field_errors()))
+    else:
+        form = RouteForm(instance=route_object)
+    return render_to_response(template, locals(), RequestContext(request))
+
+
+ # Path Views
+def path_home(request, template="route/path/home.html", title="Path Management"):
 
     path_list = Path.objects.all()
     path_paginator = Paginator(path_list, 10)
@@ -83,7 +168,7 @@ class DeletePathView(DeleteView):
         return reverse('path_home')
 
 
-def edit_path(request, pk, template="route/path/path-form.html", title="Add Path"):
+def edit_path(request, pk, template="route/path/path-form.html", title="Edit Path"):
     path_object = get_object_or_404(Path, pk=pk)
     if request.method == 'POST':
         form = PathForm(request.POST, instance=path_object)
@@ -117,7 +202,7 @@ def edit_path(request, pk, template="route/path/path-form.html", title="Add Path
 # End of Path view
 
 # Train Path views
-def train_path_home(request, template="route/train path/home.html", title="Route Management"):
+def train_path_home(request, template="route/train path/home.html", title="Train Path Management"):
 
     train_path_list = TrainPath.objects.all()
     train_path_paginator = Paginator(train_path_list, 10)

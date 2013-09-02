@@ -2,7 +2,6 @@ import math
 import decimal
 
 from fare.models import Fare
-from route.models import (Path, TrainPath)
 
 valid_mrt_stations = [
     'Taft Avenue Station',
@@ -40,6 +39,7 @@ def calculate_cost(mode, distance):
     base = Fare.objects.get(mode=mode).base
     increment = Fare.objects.get(mode=mode).increment
     base_distance = decimal.Decimal(4)
+    distance = decimal.Decimal(distance)
 
     if mode == 'Jeep':
         if distance > base_distance:
@@ -55,3 +55,38 @@ def calculate_cost(mode, distance):
             return math.ceil((base + add_per_km)*100/100)
         else:
             return base
+
+def get_city(city):
+    count = 0
+    for letter in city:
+        if letter != ',':
+            count += 1
+        else:
+            return city[count:].strip(',').strip(' ')
+
+def distance_total(lists):
+    path = lists.path.all()
+    train_path = lists.train_path.all()
+    total = 0
+
+    for x in path:
+        total += x.distance
+
+    for x in train_path:
+        total += x.distance
+
+    return total
+
+
+def cost_total(lists):
+    path = lists.path.all()
+    train_path = lists.train_path.all()
+    total = 0
+
+    for x in path:
+        total += x.cost
+
+    for x in train_path:
+        total += x.cost
+
+    return total

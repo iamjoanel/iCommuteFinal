@@ -1,0 +1,36 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+<div id='wrap' style="margin-top:100px;" class="center">
+    <h1>
+        <p><i class="icon-exclamation-sign icon-3x"></i></p>
+            Delete Route?
+    </h1>
+    <p>
+        Are you sure you want to Delete this Route?:
+        <ul>
+            <li>Origin:<strong> {{ route.origin }}, {{ route.origin_city}}</strong></li>
+            <li>Destination:<strong> {{ route.destination }}, {{ route.destination_city }}</strong></li>
+            <li>Total Distance: <strong>{{ route.total_distance }} KM</strong></li>
+            <li>Total Cost: <strong>Php {{ route.total_cost }}</strong></li>
+            <li>Created BY: <strong>{{ route.created_by }}</strong></li>
+            <li>Approved Status: <strong>{{ route.is_approved }}</strong></li>
+            <li>Related Paths<br/>
+                <ol>
+                {% for x in route.path.all %}
+                    <li>{{ x }}</li>
+                {% endfor %}
+                {% for z in route.train_path.all %}
+                    <li>{{ z }}</li>
+                {% endfor %}
+                </ol>
+            </li>
+        </ul>
+    </p>
+    <form action="{% url 'delete_route' pk=route.id %}" method="POST">
+        {% csrf_token %}
+        <button class="green large" type="submit">Delete</button>
+        <a href="{% url 'path_home' %}" class="button red large">Cancel</a>
+    </form>
+</div>
+{% endblock content %}

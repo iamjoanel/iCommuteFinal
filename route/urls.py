@@ -1,9 +1,13 @@
 from django.conf.urls import (patterns, url)
 
-from .views import (DeletePathView, DeleteTrainPathView)
+from .views import (DeletePathView, DeleteTrainPathView, DeleteRouteView)
 
 urlpatterns = patterns('route.views',
     url(r'^$', 'route_home', name="route_home"),
+
+    url(r'^add_route/$', 'add_route', name="add_route"),
+    url(r'^edit_route/(?P<pk>\d+)/$', 'edit_route', name="edit_route"),
+    url(r'^delete_route/(?P<pk>\d+)/$', DeleteRouteView.as_view(), name="delete_route"),
 
     url(r'^train_path/$', 'train_path_home', name="train_path_home"),
 
