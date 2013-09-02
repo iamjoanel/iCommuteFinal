@@ -110,6 +110,23 @@ def edit_route(request, pk, template="route/route/route-form.html", title="Edit 
     return render_to_response(template, locals(), RequestContext(request))
 
 
+def approve_route(request, pk):
+    # admin only view
+    route = get_object_or_404(Route, pk=pk)
+
+    if not route.is_approved:
+        route.is_approved = True
+        route.save()
+
+        messages.add_message(request, messages.SUCCESS, 'Route Approved')
+    else:
+        route.is_approved = False
+        route.save()
+        messages.add_message(request, messages.ERROR, 'Route Disapproved')
+
+    return redirect('route_home')
+
+
  # Path Views
 def path_home(request, template="route/path/home.html", title="Path Management"):
 

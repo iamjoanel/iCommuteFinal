@@ -3,7 +3,7 @@
 {% block content %}
     {% if route %}
         <div id="wrap">
-            <h1 class="center"><i class="icon-cogs"></i> Route Management</h1>
+            <h1 class="center"><i class="icon-road"></i> Route Management</h1>
             <table class="stripped tight sortable" cellspacing="0" cellpadding="0">
                 <thead>
                     <tr>
@@ -33,7 +33,13 @@
                             <td>{{ p.created_by }}</td>
                             <td>{{ p.created }}</td>
                             <td>{{ p.edited }}</td>
-                            <td>{{ p.is_approved }}</td>
+                            <td>
+                                {% if not p.is_approved %}
+                                    <a href="{% url 'approve_route' pk=p.id %}"><i class="icon-remove"></i></a>
+                                {% else %}
+                                    <a href="{% url 'approve_route' pk=p.id %}"><i class="icon-ok"></i></a>
+                                {% endif %}
+                            </td>
                             <td><a href="{% url 'edit_route' pk=p.id %}"><i class="icon-edit"></i></a></td>
                             <td><a href="{% url 'delete_route' pk=p.id %}"><i class="icon-trash"></i></a></td>
                         </tr>

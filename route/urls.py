@@ -7,6 +7,7 @@ urlpatterns = patterns('route.views',
 
     url(r'^add_route/$', 'add_route', name="add_route"),
     url(r'^edit_route/(?P<pk>\d+)/$', 'edit_route', name="edit_route"),
+    url(r'^approve_route/(?P<pk>\d+)/$', 'approve_route', name="approve_route"),
     url(r'^delete_route/(?P<pk>\d+)/$', DeleteRouteView.as_view(), name="delete_route"),
 
     url(r'^train_path/$', 'train_path_home', name="train_path_home"),
