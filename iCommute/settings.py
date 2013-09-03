@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'public',
     'fare',
     'route',
+    'administration',
 )
 
 # A sample logging configuration. The only tangible logging

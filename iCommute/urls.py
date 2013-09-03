@@ -1,9 +1,9 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import (patterns, include, url)
+
 
 urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
-    url(r'^fare/', include('fare.urls')),
-    url(r'^route/', include('route.urls')),
+    url(r'^administration/', include('administration.urls')),
 )
 
 urlpatterns += patterns('',
@@ -13,6 +13,8 @@ urlpatterns += patterns('',
 urlpatterns += patterns('public.views',
     url(r'^$', 'home', name='home'),
 )
+
+
 # Examples:
 # url(r'^$', 'iCommute.views.home', name='home'),
 # url(r'^iCommute/', include('iCommute.foo.urls')),
