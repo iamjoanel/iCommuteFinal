@@ -11,7 +11,7 @@ from .utils import (calculate_cost, calculate_train_cost, distance_total, cost_t
 
 def route_home(request, template="route/route/home.html", title="Route Management"):
 
-    route_list = Route.objects.all()
+    route_list = Route.objects.all().order_by('-created')
     route_paginator = Paginator(route_list, 10)
     page = request.GET.get('page')
 
@@ -130,7 +130,7 @@ def approve_route(request, pk):
  # Path Views
 def path_home(request, template="route/path/home.html", title="Path Management"):
 
-    path_list = Path.objects.all()
+    path_list = Path.objects.all().order_by('-created')
     path_paginator = Paginator(path_list, 10)
     page = request.GET.get('page')
 
@@ -221,7 +221,7 @@ def edit_path(request, pk, template="route/path/path-form.html", title="Edit Pat
 # Train Path views
 def train_path_home(request, template="route/train path/home.html", title="Train Path Management"):
 
-    train_path_list = TrainPath.objects.all()
+    train_path_list = TrainPath.objects.all().order_by('-created')
     train_path_paginator = Paginator(train_path_list, 10)
     page = request.GET.get('page')
 

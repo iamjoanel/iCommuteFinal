@@ -16,7 +16,7 @@
 
     <body>
     <div class="row">
-        <form action="{% url 'auth_login' %}" method="post">
+        <form action="{% url 'administration_login' %}" method="post">
             {% csrf_token %}
             <center>
             <table>
@@ -51,28 +51,12 @@
                     </td>
                     <td></td>
                 </tr>
-
-                <tr>
-                    <td></td>
-                    <td><a href="/accounts/password/reset/">Forgot Password?</a></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td><a href="/accounts/register">New User? Sign up Now!</a></td>
-                    <td></td>
-                </tr>
-
                 <tr>
                     <td></td>
                     <td><button class="button">Login</button></td>
 
-                    <td>
-                        <input type="hidden" name="next" value="{{ next }}"/>
-                    </td>
+                    <td><input type="hidden" name="next" value="/administration/route/" /></td>
                 </tr>
-
             </table>
         </center>
         </form>
