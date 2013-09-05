@@ -3,3 +3,48 @@ html, body { height: 100%;}
 footer {
     position: relative;
 }
+
+.smallmap {
+    height: 400px;
+    width : 600px;
+
+    border: 1px solid #ccc;
+}
+      #legend {
+          margin      : 5px;
+          padding     : 5px;
+          padding-left: 10px;
+
+          font-family : Arial, sans-serif;
+          font-size   : 12px;
+      }
+
+      .color {
+          float       : left;
+
+          height      : 12px;
+          width       : 12px;
+          margin-right: 3px;
+
+          border      : 1px solid;
+      }
+
+      .bus {
+          background: #F5870A;
+      }
+
+      .jeep {
+          background: #F50A0A;
+      }
+
+      .train {
+          background: #2D0AF5;
+      }
+
+      .walk {
+          background: #2BFF00;
+      }
+
+#route tr:hover {
+  background-color: #ccc;
+}

@@ -14,10 +14,13 @@ from route.utils import (calculate_cost, calculate_train_cost, distance_total, c
 def home(request, template="public/home.html"):
     return render_to_response(template, locals(), RequestContext(request))
 
-@login_required
-def public_route_home(request, template="route/route/home.html", title="Route Management"):
+def search_routes(request):
+    pass
 
-    route_list = Route.objects.all().order_by('-created')
+@login_required
+def public_route_home(request, template="public/route/home.html", title="Route Management"):
+
+    route_list = Route.objects.filter(created_by=request.user).order_by('-created')
     route_paginator = Paginator(route_list, 10)
     page = request.GET.get('page')
 
@@ -121,7 +124,7 @@ def public_edit_route(request, pk, template="route/route/route-form.html", title
 @login_required # Path Views
 def public_path_home(request, template="route/path/home.html", title="Path Management"):
 
-    path_list = Path.objects.all().order_by('-created')
+    path_list = Path.objects.filter(created_by=request.user).order_by('-created')
     path_paginator = Paginator(path_list, 10)
     page = request.GET.get('page')
 
@@ -135,7 +138,7 @@ def public_path_home(request, template="route/path/home.html", title="Path Manag
     return render_to_response(template, locals(), RequestContext(request))
 
 @login_required
-def public_add_path(request, template="route/path/path-form.html", title="Add Path"):
+def public_add_path(request, template="public/path/path-form.html", title="Add Path"):
     if request.method == 'POST':
         form = PathForm(request.POST)
         distance = 0
@@ -158,7 +161,7 @@ def public_add_path(request, template="route/path/path-form.html", title="Add Pa
                 path_object.distance = distance
                 path_object.save()
                 messages.add_message(request, messages.SUCCESS, "Path Added Successfully")
-                return redirect('path_home')
+                return redirect('public_path_home')
 
         else:
             messages.add_message(request, messages.ERROR, ''.join(
@@ -171,13 +174,13 @@ def public_add_path(request, template="route/path/path-form.html", title="Add Pa
 @login_required
 class DeletePathView(DeleteView):
     model = Path
-    template_name = 'route/path/delete-path.html'
+    template_name = 'public/path/delete-path.html'
 
     def get_success_url(self):
         return reverse('path_home')
 
 @login_required
-def public_edit_path(request, pk, template="route/path/path-form.html", title="Edit Path"):
+def public_edit_path(request, pk, template="public/path/path-form.html", title="Edit Path"):
     path_object = get_object_or_404(Path, pk=pk)
     if request.method == 'POST':
         form = PathForm(request.POST, instance=path_object)
@@ -211,7 +214,7 @@ def public_edit_path(request, pk, template="route/path/path-form.html", title="E
 # End of Path view
 
 @login_required# Train Path views
-def public_train_path_home(request, template="route/train path/home.html", title="Train Path Management"):
+def public_train_path_home(request, template="public/train path/home.html", title="Train Path Management"):
 
     train_path_list = TrainPath.objects.all().order_by('-created')
     train_path_paginator = Paginator(train_path_list, 10)
@@ -227,7 +230,7 @@ def public_train_path_home(request, template="route/train path/home.html", title
     return render_to_response(template, locals(), RequestContext(request))
 
 @login_required
-def public_add_train_path(request, template="route/train path/train-path-form.html", title="Add Train Path"):
+def public_add_train_path(request, template="public/train path/train-path-form.html", title="Add Train Path"):
     if request.method == 'POST':
         form = TrainPathForm(request.POST)
         if form.is_valid():
@@ -248,12 +251,12 @@ def public_add_train_path(request, template="route/train path/train-path-form.ht
 @login_required
 class DeleteTrainPathView(DeleteView):
     model = TrainPath
-    template_name = 'route/train path/delete-train-path.html'
+    template_name = 'public/train path/delete-train-path.html'
     def get_success_url(self):
         return reverse('train_path_home')
 
 @login_required
-def public_edit_train_path(request, pk, template="route/train path/train-path-form.html", title="Edit Train Path"):
+def public_edit_train_path(request, pk, template="public/train path/train-path-form.html", title="Edit Train Path"):
     train_path_object = get_object_or_404(TrainPath, pk=pk)
     if request.method == 'POST':
         form = TrainPathForm(request.POST, instance=train_path_object)

@@ -20,6 +20,14 @@
             {% csrf_token %}
             <center>
             <table>
+                {% if messages %}
+                    <section id="messages">
+                            {% for message in messages %}
+                                <div class="notice {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<a href="#close" class="icon-remove"></a></div>
+                            {% endfor %}
+                    </section>
+                {% endif %}
+
                 <th>
                     <h1>Login</h1>
                 </th>
@@ -55,7 +63,7 @@
                     <td></td>
                     <td><button class="button">Login</button></td>
 
-                    <td><input type="hidden" name="next" value="/administration/route/" /></td>
+                    <td><input type="hidden" name="next" value="{% url 'route_home' %}" /></td>
                 </tr>
             </table>
         </center>

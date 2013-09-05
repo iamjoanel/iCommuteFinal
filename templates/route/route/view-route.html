@@ -1,0 +1,157 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+<style type="text/css">
+
+</style>
+<script type="text/javascript">
+  var path_geojson_data = {{ path_json|safe }}
+      train_path_geojson_data = {{ train_path_json|safe }}
+
+  $(document).ready(function(){
+    var map = new OpenLayers.Map('map');
+        geojson_parser = new OpenLayers.Format.GeoJSON();
+    base_layer = new OpenLayers.Layer.OSM("OpenStreetMap");
+    map.addLayer(base_layer);
+
+    train_path_style = new OpenLayers.Style({
+      'strokeWidth': 4,
+      'strokeLinecap': 'square',
+      'strokeColor': '#2D0AF5',
+      'strokeDashstyle': 'dot'
+    });
+
+    path_style = new OpenLayers.Style();
+
+    jeep_rule = new OpenLayers.Rule({
+      filter: new OpenLayers.Filter.Comparison({
+      type: OpenLayers.Filter.Comparison.LIKE,
+      property: "mode",
+      value: "Jeep",
+    }),
+      symbolizer: {
+        'strokeWidth': 3,
+        'strokeLinecap': 'square',
+        'strokeColor': '#F50A0A',
+        'strokeDashstyle': 'dash'
+      }
+    });
+
+    bus_rule = new OpenLayers.Rule({
+      filter: new OpenLayers.Filter.Comparison({
+      type: OpenLayers.Filter.Comparison.LIKE,
+      property: "mode",
+      value: "Bus",
+    }),
+      symbolizer: {
+        'strokeWidth': 3,
+        'strokeLinecap': 'square',
+        'strokeColor': '#F5870A',
+        'strokeDashstyle': 'dash'
+      }
+    });
+
+    walk_rule = new OpenLayers.Rule({
+      filter: new OpenLayers.Filter.Comparison({
+      type: OpenLayers.Filter.Comparison.LIKE,
+      property: "mode",
+      value: "Walk",
+    }),
+      symbolizer: {
+        'strokeWidth': 3,
+        'strokeLinecap': 'square',
+        'strokeColor': '#2BFF00',
+        'strokeDashstyle': 'solid'
+      }
+    });
+
+    path_style.addRules([jeep_rule, bus_rule, walk_rule])
+
+    path_layer = new OpenLayers.Layer.Vector("Path Layer", {
+      styleMap: new OpenLayers.StyleMap(path_style)
+    });
+    train_path_layer = new OpenLayers.Layer.Vector("Train Path Layer", {
+      styleMap: new OpenLayers.StyleMap(train_path_style)
+    });
+
+    path_layer.addFeatures(geojson_parser.read(path_geojson_data));
+    map.addLayer(path_layer);
+
+    train_path_layer.addFeatures(geojson_parser.read(train_path_geojson_data));
+    map.addLayer(train_path_layer);
+
+    // map.addControl(new OpenLayers.Control.LayerSwitcher());
+    map.setCenter(
+    new OpenLayers.LonLat(121.032, 14.594).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), 12);
+    if(!map.getCenter()){
+      map.zoomToMaxExtent();
+    }
+});
+</script>
+<div class="col_12" id="wrap">
+  <h3 class="center">From: {{ route.origin|title }}, {{ route.origin_city|title }} To {{ route.destination|title }}, {{ route.destination_city|title }}</h3>
+<div class="col_5">
+  {% if path and train_path %}
+  <table cellspacing="0" cellpadding="0" class="tight">
+    <thead>
+      <tr>
+        <th>Mode</th>
+        <th>Origin</th>
+        <th>Destination</th>
+        <th>Distance</th>
+        <th>Cost</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      {% for p in path %}
+      <td>{{ p.mode }}</td>
+      <td>{{ p.origin_point }}</td>
+      <td>{{ p.destination_point }}</td>
+      <td>{{ p.distance }} KM</td>
+      <td>PHP {{ p.cost }}</td>
+      <td>{{ p.time|time:"H:i:s" }}</td>
+      {% endfor %}
+    </tr>
+    <tr>
+      {% for p in train_path %}
+      <td>Train</td>
+      <td>{{ p.origin_station }}</td>
+      <td>{{ p.destination_station }}</td>
+      <td>{{ p.distance }} KM</td>
+      <td>PHP {{ p.cost }}</td>
+      <td>{{ p.time|time:"H:i:s" }}</td>
+      {% endfor %}
+    </tr>
+    </tbody>
+  </table>
+  {% if route.is_approved %}
+    <a href="{% url 'approve_route' route.id %}" class="button green">Disapprove Route</a>
+  {% else %}
+    <a href="{% url 'approve_route' route.id %}" class="button green" >Approve Route</a>
+  {% endif %}
+  <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
+  <a href="{% url 'edit_route' route.id %}" class="button blue">Edit Route</a>
+  {% else %}
+    <p class="center">
+      <i class=" icon-question-sign icon-4x"></i><br>
+      There are No Paths/Train Paths associated with this Route<br>
+      <a href="{% url 'route_home' %}" class="button red">Go Back</a>
+      <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
+    </p>
+  {% endif %}
+
+</div>
+<div id="map" class="smallmap col_9"></div>
+<div id="legend" class="col_1">
+  <h6>Legend</h6>
+    <table cellspacing="0" cellpadding="0" class="tight">
+      <tr><td><p><div class="color bus"></div>Bus</p></td></tr>
+      <tr><td><p><div class="color jeep"></div>Jeep</p></td></tr>
+      <tr><td><p><div class="color train"></div>Train</p></td></tr>
+      <tr><td><p><div class="color walk"></div>Walk</p></td></tr>
+    </table>
+</div>
+</div>
+{% endblock content %}

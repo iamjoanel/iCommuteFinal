@@ -7,7 +7,7 @@
             {% csrf_token %}
             {{ form.as_p  }}
             <button type="submit" class="green">Submit</button>
-            <a href="{% url 'route_home' %}" class="button red">Cancel</a>
+            <input type=button value="Cancel" onClick="javascript:history.go(-1);" class="button red">
         </form>
     </div>
 {% endblock content %}

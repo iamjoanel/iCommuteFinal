@@ -48,10 +48,10 @@ class TrainPathForm(forms.ModelForm):
 class RouteForm(forms.ModelForm):
     class Meta:
         model = Route
-        exclude = ('total_distance', 'total_cost', 'origin_city', 'destination_city', 'is_approved',)
+        exclude = ('total_distance', 'total_cost', 'origin_city', 'destination_city', 'is_approved', 'created_by',)
         widgets = {
-            'origin': forms.TextInput(attrs={'placeholder': "Origin"}),
-            'destination': forms.TextInput(attrs={'placeholder': "Destination"}),
+            'origin': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City"}),
+            'destination': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City"}),
             'path': forms.SelectMultiple(),
             'train_path': forms.SelectMultiple(),
         }

@@ -1,10 +1,22 @@
 {% extends "base/base-admin.html" %}
 
 {% block content %}
+
+<script>
+    $(document).ready(function(){
+        $('#route tr').click(function(){
+            var href = $(this).find("a").attr("href");
+            if(href) {
+                window.location = href;
+            }
+        });
+    });
+</script>
+
     {% if route %}
         <div id="wrap">
             <h1 class="center"><i class="icon-road"></i> Route Management</h1>
-            <table class="stripped tight sortable" cellspacing="0" cellpadding="0">
+            <table class="stripped tight sortable" cellspacing="0" cellpadding="0" id="route">
                 <thead>
                     <tr>
                         <th>Origin</th>
@@ -16,9 +28,7 @@
                         <th>Created by</th>
                         <th>Created</th>
                         <th>Updated</th>
-                        <th>Approved</th>
-                        <th><i class="icon-edit"></i></th>
-                        <th><i class="icon-trash"></i></th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,15 +44,12 @@
                             <td>{{ p.created }}</td>
                             <td>{{ p.edited }}</td>
                             <td>
-                                {% if not p.is_approved %}
-                                    <a href="{% url 'approve_route' pk=p.id %}"><i class="icon-remove"></i></a>
+                                {% if p.is_approved %}
+                                    <a href="{% url 'view_route' p.id %}"><i class="icon-ok-sign"></i></a>
                                 {% else %}
-                                    <a href="{% url 'approve_route' pk=p.id %}"><i class="icon-ok"></i></a>
+                                    <a href="{% url 'view_route' p.id %}"><i class="icon-remove-sign"></i></a>
                                 {% endif %}
                             </td>
-                            <td><a href="{% url 'edit_route' pk=p.id %}"><i class="icon-edit"></i></a></td>
-                            <td><a href="{% url 'delete_route' pk=p.id %}"><i class="icon-trash"></i></a></td>
-                        </tr>
                         {% endfor %}
                 </tbody>
             </table>

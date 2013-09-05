@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.views.generic import DeleteView
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from vectorformats.Formats import Django, GeoJSON
 
 from .forms import (TrainPathForm, PathForm, RouteForm)
 from .models import (TrainPath, Path, Route)
@@ -47,10 +48,12 @@ def add_route(request, template="route/route/route-form.html", title="Add Route"
                 instance.destination = destination[0]
                 instance.destination_city = destination[1].lstrip()
 
+            instance.created_by = request.user
             instance.save()
             form.save_m2m()
             instance.total_distance = distance_total(instance)
             instance.total_cost = cost_total(instance)
+
             instance.save()
 
             messages.add_message(request, messages.SUCCESS, 'Route added successfully!')
@@ -110,22 +113,33 @@ def edit_route(request, pk, template="route/route/route-form.html", title="Edit 
     return render_to_response(template, locals(), RequestContext(request))
 
 
+def view_route(request, pk, template="route/route/view-route.html", title="Review Route"):
+    route = get_object_or_404(Route, pk=pk)
+    path = route.path.all()
+    train_path = route.train_path.all()
+    geoj = GeoJSON.GeoJSON()
+
+    path_format = Django.Django(geodjango="path", properties=["mode"])
+    path_json = geoj.encode(path_format.decode(path))
+    train_path_format = Django.Django(geodjango="path")
+    train_path_json = geoj.encode(train_path_format.decode(train_path))
+
+    return render_to_response(template, locals(), RequestContext(request))
+
 def approve_route(request, pk):
     # admin only view
     route = get_object_or_404(Route, pk=pk)
-
-    if not route.is_approved:
-        route.is_approved = True
-        route.save()
-
-        messages.add_message(request, messages.SUCCESS, 'Route Approved')
-    else:
-        route.is_approved = False
-        route.save()
-        messages.add_message(request, messages.ERROR, 'Route Disapproved')
+    if request.user.is_superuser:
+        if not route.is_approved:
+            route.is_approved = True
+            route.save()
+            messages.add_message(request, messages.SUCCESS, 'Route Approved')
+        else:
+            route.is_approved = False
+            route.save()
+            messages.add_message(request, messages.ERROR, 'Route Disapproved')
 
     return redirect('route_home')
-
 
  # Path Views
 def path_home(request, template="route/path/home.html", title="Path Management"):

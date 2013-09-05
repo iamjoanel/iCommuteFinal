@@ -29,8 +29,8 @@
     </p>
     <form action="{% url 'delete_route' pk=route.id %}" method="POST">
         {% csrf_token %}
-        <button class="green large" type="submit">Delete</button>
-        <a href="{% url 'path_home' %}" class="button red large">Cancel</a>
+        <button class="green" type="submit">Delete</button>
+        <input type=button value="Cancel" onClick="javascript:history.go(-1);" class="button red">
     </form>
 </div>
 {% endblock content %}

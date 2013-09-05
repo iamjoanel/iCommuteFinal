@@ -173,3 +173,10 @@ INTERNAL_IPS = ('127.0.0.1',)
 ACCOUNT_ACTIVATION_DAYS = 3
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+
+LOGIN_URL = '/administration/login/'
+LOGIN_EXEMPT_URLS = (
+    r'^$',
+    r'^accounts/',
+)
