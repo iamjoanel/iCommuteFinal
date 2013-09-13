@@ -1,82 +1,63 @@
 {% extends "base/base-user.html" %}
 
-{% block content %}
-
-<script>
-    $(document).ready(function(){
-        $('#route tr').click(function(){
-            var href = $(this).find("a").attr("href");
-            if(href) {
-                window.location = href;
-            }
-        });
-    });
-</script>
-
-    {% if route %}
-        <div id="wrap">
-            <h1 class="center"><i class="icon-road"></i> Route Management</h1>
-            <table class="stripped tight sortable" cellspacing="0" cellpadding="0" id="route">
-                <thead>
-                    <tr>
-                        <th>Origin</th>
-                        <th>Origin City</th>
-                        <th>Destination</th>
-                        <th>Destination City</th>
-                        <th>Total Distance</th>
-                        <th>Total Cost</th>
-                        <th>Created by</th>
-                        <th>Created</th>
-                        <th>Updated</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                        {% for p in route %}
-                        <tr>
-                            <td>{{ p.origin|title }}</td>
-                            <td>{{ p.origin_city|title }}</td>
-                            <td>{{ p.destination|title }}</td>
-                            <td>{{ p.destination_city|title }}</td>
-                            <td>{{ p.total_distance }} KM</td>
-                            <td>Php {{ p.total_cost }}</td>
-                            <td>{{ p.created_by }}</td>
-                            <td>{{ p.created }}</td>
-                            <td>{{ p.edited }}</td>
-                            <td>
-                                {% if p.is_approved %}
-                                    <a href="{% url 'view_route' p.id %}"><i class="icon-ok-sign"></i></a>
-                                {% else %}
-                                    <a href="{% url 'view_route' p.id %}"><i class="icon-remove-sign"></i></a>
-                                {% endif %}
-                            </td>
-                        {% endfor %}
-                </tbody>
-            </table>
-            <div class="pagination">
-                <span class="add_button">
-                    <a href="{% url 'add_route' %}"><i class="icon-plus-sign tooltip-right icon-large" title="Add route"></i></a>
-                    </span>
-                    <span class="step-links" style="float:right;">
-                        {% if route.has_previous %}
-                        <a href="?page={{ route.previous_page_number }}"><i class="icon-circle-arrow-left icon-large"></i></a>
+{% block user_content %}
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Origin</th>
+                <th>Origin City</th>
+                <th>Destination</th>
+                <th>Destination City</th>
+                <th>Total Distance</th>
+                <th>Total Cost</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for p in route %}
+                <tr>
+                    <td>
+                        {% if p.is_approved %}
+                            <span class="success label">Approved</span>
+                        {% else %}
+                            <span class="alert label">Pending</span>
                         {% endif %}
-                        <span class="current">
+                    </td>
+                    <td>{{ p.origin|title }}</td>
+                    <td>{{ p.origin_city|title }}</td>
+                    <td>{{ p.destination|title }}</td>
+                    <td>{{ p.destination_city|title }}</td>
+                    <td>{{ p.total_distance }} KM</td>
+                    <td>Php {{ p.total_cost }}</td>
+                    <td><a href="{% url 'public_edit_route' pk=p.id %}">Edit</a></td>
+                    <td><a href="{% url 'public_delete_route' pk=p.id %}">Delete</a></td>
+                {% endfor %}
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span class="add_button">
+            <a href="{% url 'public_add_route' %}" class="tiny button">Add Route</a>
+        </span>
+        <span style="float:right;">
+                <ul class="pagination">
+                    {% if route.has_previous %}
+                    <li class="arrow unavailable">
+                        <a href="?page={{ route.previous_page_number }}">&laquo;</a>
+                    </li>
+                    {% endif %}
+                    <span class="current">
+                        <li>
                             Page {{ route.number }} of {{ route.paginator.num_pages }}
-                        </span>
-                        {% if route.has_next %}
-                            <a href="?page={{ route.next_page_number }}"><i class="icon-circle-arrow-right icon-large"></i></a>
-                        {% endif %}
-                </span>
+                        </li>
+                    </span>
+                    {% if route.has_next %}
+                    <li class="arrow">
+                        <a href="?page={{ route.next_page_number }}">&raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+        </span>
     </div>
-        </div>
-    {% else %}
-        <div class="col_12" style="margin-top:100px;">
-            <h1 class="center">
-                <p><i class=" icon-warning-sign icon-4x"></i></p>
-                There are no Routes <br>
-                <a href="{% url 'add_route' %}">Add some here!</a>
-            </h1>
-        </div>
-    {% endif %}
-{% endblock content %}
+{% endblock user_content %}

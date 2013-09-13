@@ -1,6 +1,6 @@
 {% extends "base/base-user.html" %}
 
-{% block content %}
+{% block user_content %}
 {{ form.media }}
     <div class="col_9" id='wrap'>
         <form action="" method="post">
@@ -10,4 +10,4 @@
             <a href="{% url 'path_home' %}" class="button red">Cancel</a>
         </form>
     </div>
-{% endblock content %}
+{% endblock user_content %}

@@ -156,21 +156,30 @@ def approve_route(request, pk):
                 route.is_approved = True
                 route.save()
                 messages.add_message(request, messages.SUCCESS, 'Route Approved')
-                notify_approval(route.pk)
+                op = True
+                notify_approval(route.pk, op)
             else:
                 route.is_approved = False
+                op = False
                 route.save()
                 messages.add_message(request, messages.ERROR, 'Route Disapproved')
+                notify_approval(route.pk, op)
             return redirect('route_home')
     else:
         return redirect('user_panel')
 
-def notify_approval(pk):
+def notify_approval(pk, op):
     route = get_object_or_404(Route, pk=pk)
     user = get_object_or_404(User, pk=route.created_by.pk)
-    subject = "Route Approved"
-    receiver = user.email
-    message = "This is to notify you that the Route: %s you created on: %s was approved by the administrator" % (route, route.created)
+    if op:
+        subject = "Route Approved"
+        receiver = user.email
+        message = "This is to notify you that the Route: %s you created on: %s was approved by the administrator" % (route, route.created)
+    else:
+        subject = "Route Disapproved"
+        receiver = user.email
+        message = "This is to notify you that the Route: %s you created on: %s was disapproved by the administrator" % (route, route.created)
+
     send_mail(subject, message, "testwebmaster@local.com", [receiver], fail_silently=False)
 
  # Path Views
@@ -379,7 +388,7 @@ def public_add_route(request, template="route/public/route/route-form.html", tit
             instance.save()
 
             messages.add_message(request, messages.SUCCESS, 'Route added successfully!')
-            return redirect('route_home')
+            return redirect('public_route_home')
         else:
             messages.add_message(request, messages.ERROR, ''.join(
                 form.non_field_errors()))
@@ -395,7 +404,7 @@ class PublicDeleteRouteView(DeleteView):
     template_name = 'route/public/route/delete-route.html'
 
     def get_success_url(self):
-        return reverse('route_home')
+        return reverse('public_route_home')
 
 
 @login_required
@@ -431,7 +440,7 @@ def public_edit_route(request, pk, template="route/public/route/route-form.html"
             instance.save()
 
             messages.add_message(request, messages.SUCCESS, 'Route added successfully!')
-            return redirect('route_home')
+            return redirect('public_route_home')
         else:
             messages.add_message(request, messages.ERROR, ''.join(
                 form.non_field_errors()))
@@ -466,7 +475,7 @@ def public_add_path(request, template="route/public/path/path-form.html", title=
                 path_object.created_by = request.user
                 path_object.save()
                 messages.add_message(request, messages.SUCCESS, "Path Added Successfully")
-                return redirect('path_home')
+                return redirect('public_path_home')
 
         else:
             messages.add_message(request, messages.ERROR, ''.join(
@@ -481,7 +490,7 @@ class PublicDeletePathView(DeleteView):
     template_name = 'route/public/path/delete-path.html'
 
     def get_success_url(self):
-        return reverse('path_home')
+        return reverse('public_path_home')
 
 @login_required
 def public_edit_path(request, pk, template="route/public/path/path-form.html", title="Edit Path"):
@@ -508,7 +517,7 @@ def public_edit_path(request, pk, template="route/public/path/path-form.html", t
                 path_object.distance = distance
                 path_object.save()
                 messages.add_message(request, messages.SUCCESS, "Path Updated Successfully")
-                return redirect('path_home')
+                return redirect('public_path_home')
         else:
             messages.add_message(request, messages.ERROR, ''.join(
                 form.non_field_errors()))
@@ -529,7 +538,7 @@ def public_add_train_path(request, template="route/public/train path/train-path-
             instance.created_by = request.user
             instance.save()
             messages.add_message(request, messages.SUCCESS, "Train Path added successfully")
-            return redirect('train_path_home')
+            return redirect('public_train_path_home')
         else:
             messages.add_message(request, messages.ERROR, ''.join(form.non_field_errors()))
     else:
@@ -542,10 +551,10 @@ class PublicDeleteTrainPathView(DeleteView):
     template_name = 'route/public/train path/delete-train-path.html'
 
     def get_success_url(self):
-        return reverse('train_path_home')
+        return reverse('public_train_path_home')
 
 @login_required
-def public_edit_train_path(request, pk, template="route/train path/train-path-form.html", title="Edit Train Path"):
+def public_edit_train_path(request, pk, template="route/public/train path/train-path-form.html", title="Edit Train Path"):
     train_path_object = get_object_or_404(TrainPath, pk=pk)
     if request.method == 'POST':
         form = TrainPathForm(request.POST, instance=train_path_object)
@@ -556,9 +565,54 @@ def public_edit_train_path(request, pk, template="route/train path/train-path-fo
                 instance.distance = p.length.km
             instance.save()
             messages.add_message(request, messages.SUCCESS, "Train Path added successfully")
-            return redirect('train_path_home')
+            return redirect('public_train_path_home')
         else:
             messages.add_message(request, messages.ERROR, ''.join(form.non_field_errors()))
     else:
         form = TrainPathForm(instance=train_path_object)
+    return render_to_response(template, locals(), RequestContext(request))
+
+@login_required
+def public_route_home(request, template="route/public/route/home.html", title="Route Management"):
+    route_list = Route.objects.filter(created_by=request.user).order_by('-created')
+    route_paginator = Paginator(route_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        route = route_paginator.page(page)
+    except PageNotAnInteger:
+        route = route_paginator.page(1)
+    except EmptyPage:
+        route = route_paginator.page(route_paginator.num_pages)
+
+    return render_to_response(template, locals(), RequestContext(request))
+
+@login_required
+def public_path_home(request, template="route/public/path/home.html", title="Path Management"):
+        path_list = Path.objects.filter(created_by=request.user).order_by('-created')
+        path_paginator = Paginator(path_list, 10)
+        page = request.GET.get('page')
+
+        try:
+            path = path_paginator.page(page)
+        except PageNotAnInteger:
+            path = path_paginator.page(1)
+        except EmptyPage:
+            path = path_paginator.page(path_paginator.num_pages)
+
+        return render_to_response(template, locals(), RequestContext(request))
+
+@login_required
+def public_train_path_home(request, template="route/public/train path/home.html", title="Train Path Management"):
+    train_path_list = TrainPath.objects.filter(created_by=request.user).order_by('-created')
+    train_path_paginator = Paginator(train_path_list, 10)
+    page = request.GET.get('page')
+
+    try:
+        train_path = train_path_paginator.page(page)
+    except PageNotAnInteger:
+        train_path = train_path_paginator.page(1)
+    except EmptyPage:
+        train_path = train_path_paginator.page(train_path_paginator.num_pages)
+
     return render_to_response(template, locals(), RequestContext(request))

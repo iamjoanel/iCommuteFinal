@@ -4,7 +4,6 @@ from .views import (DeletePathView, DeleteTrainPathView, DeleteRouteView)
 
 urlpatterns = patterns('route.views',
     url(r'^$', 'route_home', name="route_home"),
-
     url(r'^add_route/$', 'add_route', name="add_route"),
     url(r'^edit_route/(?P<pk>\d+)/$', 'edit_route', name="edit_route"),
     url(r'^review_route/(?P<pk>\d+)/$', 'review_route', name="review_route"),

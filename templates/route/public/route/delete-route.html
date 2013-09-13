@@ -1,9 +1,8 @@
 {% extends "base/base-user.html" %}
 
 {% block user_content %}
-<div id='wrap' style="margin-top:100px;" class="center">
+<center>
     <h1>
-        <p><i class="icon-exclamation-sign icon-3x"></i></p>
             Delete Route?
     </h1>
     <p>
@@ -13,8 +12,15 @@
             <li>Destination:<strong> {{ route.destination }}, {{ route.destination_city }}</strong></li>
             <li>Total Distance: <strong>{{ route.total_distance }} KM</strong></li>
             <li>Total Cost: <strong>Php {{ route.total_cost }}</strong></li>
-            <li>Created BY: <strong>{{ route.created_by }}</strong></li>
-            <li>Approved Status: <strong>{{ route.is_approved }}</strong></li>
+            <li>Approved Status:
+                <strong>
+                    {% if route.is_approved %}
+                        Approved
+                    {% else %}
+                        Pending
+                    {% endif %}
+                </strong>
+            </li>
             <li>Related Paths<br/>
                 <ol>
                 {% for x in route.path.all %}
@@ -27,10 +33,10 @@
             </li>
         </ul>
     </p>
-    <form action="{% url 'delete_route' pk=route.id %}" method="POST">
+    <form action="{% url 'public_delete_route' pk=route.id %}" method="POST">
         {% csrf_token %}
-        <button class="green" type="submit">Delete</button>
-        <input type=button value="Cancel" onClick="javascript:history.go(-1);" class="button red">
+        <button class="button" typbutton="submit">Delete</button>
+        <a href="{% url 'public_route_home' %}" class="button">Cancel</a>
     </form>
-</div>
+</center>
 {% endblock user_content %}

@@ -1,9 +1,8 @@
 {% extends "base/base-user.html" %}
 
 {% block user_content %}
-<div id='wrap' style="margin-top:100px;" class="center">
+<center>
     <h1>
-        <p><i class="icon-exclamation-sign icon-3x"></i></p>
             Delete Path
     </h1>
     <p>
@@ -17,10 +16,10 @@
             <li>Time: <strong>{{ path.time }}</strong></li>
         </ul>
     </p>
-    <form action="{% url 'delete_path' pk=path.id %}" method="POST">
+    <form action="{% url 'public_delete_path' pk=path.id %}" method="POST">
         {% csrf_token %}
-        <button class="green large" type="submit">Delete</button>
-        <a href="{% url 'path_home' %}" class="button red large">Cancel</a>
+        <button class="button" type="submit">Delete</button>
+        <a href="{% url 'public_path_home' %}" class="button">Cancel</a>
     </form>
-</div>
+</center>
 {% endblock user_content %}

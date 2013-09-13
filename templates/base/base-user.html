@@ -4,17 +4,25 @@
     <div class="row">
         <h1><a href="{% url 'user_panel' %}">{{ user.username }}</a><small>({{ user.email }})</small></h1>
         <hr>
-        <div class="small-3 columns panel">
+        <div class="small-2 columns panel">
             {{ report_form.content }}
             <ul class="side-nav">
-                <li><a href="#">Route</a></li>
+                <li><a href="{% url 'public_route_home' %}">Route</a></li>
                 <li class="divider"></li>
-                <li><a href="{% url 'path_home' %}">Path</a></li>
+                <li><a href="{% url 'public_path_home' %}">Path</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Link 3</a></li>
+                <li><a href="{% url 'public_train_path_home' %}">Train Paths</a></li>
             </ul>
         </div>
-        <div class="small-9 columns">
+        <div class="small-10 columns">
+            {% if messages %}
+                <section id="messages">
+                    {% for message in messages %}
+                        <div class="alert-box {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}<a href="#close" class="icon-remove"></a></div>
+                    {% endfor %}
+                </section>
+            {% endif %}
+
             {% block user_content %}
 
             {% endblock user_content %}
