@@ -1,0 +1,13 @@
+{% extends "base/base-user.html" %}
+
+{% block user_content %}
+{{ form.media }}
+    <div class="col_9" id='wrap'>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p  }}
+            <button type="submit" class="green">Submit</button>
+            <input type=button value="Cancel" onClick="javascript:history.go(-1);" class="button red">
+        </form>
+    </div>
+{% endblock user_content %}

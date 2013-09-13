@@ -7,11 +7,9 @@ urlpatterns = patterns('route.views',
 
     url(r'^add_route/$', 'add_route', name="add_route"),
     url(r'^edit_route/(?P<pk>\d+)/$', 'edit_route', name="edit_route"),
-    url(r'^view_route/(?P<pk>\d+)/$', 'view_route', name="view_route"),
+    url(r'^review_route/(?P<pk>\d+)/$', 'review_route', name="review_route"),
     url(r'^approve_route/(?P<pk>\d+)/$', 'approve_route', name="approve_route"),
     url(r'^delete_route/(?P<pk>\d+)/$', DeleteRouteView.as_view(), name="delete_route"),
-
-    url(r'^train_path/$', 'train_path_home', name="train_path_home"),
 
     url(r'^path/$', 'path_home', name="path_home"),
     url(r'^path/add_path/$', 'add_path', name="add_path"),
@@ -23,5 +21,3 @@ urlpatterns = patterns('route.views',
     url(r'^train_path/edit_train_path/(?P<pk>\d+)/$', 'edit_train_path', name="edit_train_path"),
     url(r'^train_path/delete_train_path/(?P<pk>\d+)/$', DeleteTrainPathView.as_view(), name="delete_train_path"),
 )
-
-

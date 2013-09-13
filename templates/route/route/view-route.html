@@ -91,7 +91,6 @@
 <div class="col_12" id="wrap">
   <h3 class="center">From: {{ route.origin|title }}, {{ route.origin_city|title }} To {{ route.destination|title }}, {{ route.destination_city|title }}</h3>
 <div class="col_5">
-  {% if path and train_path %}
   <table cellspacing="0" cellpadding="0" class="tight">
     <thead>
       <tr>
@@ -126,20 +125,12 @@
     </tr>
     </tbody>
   </table>
+  <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
+  <a href="{% url 'edit_route' route.id %}" class="button blue">Edit Route</a>
   {% if route.is_approved %}
     <a href="{% url 'approve_route' route.id %}" class="button green">Disapprove Route</a>
   {% else %}
     <a href="{% url 'approve_route' route.id %}" class="button green" >Approve Route</a>
-  {% endif %}
-  <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
-  <a href="{% url 'edit_route' route.id %}" class="button blue">Edit Route</a>
-  {% else %}
-    <p class="center">
-      <i class=" icon-question-sign icon-4x"></i><br>
-      There are No Paths/Train Paths associated with this Route<br>
-      <a href="{% url 'route_home' %}" class="button red">Go Back</a>
-      <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
-    </p>
   {% endif %}
 
 </div>

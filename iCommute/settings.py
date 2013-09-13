@@ -97,6 +97,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'iCommute.middleware.LoginRequiredMiddleware',
+    'iCommute.middleware.UserRestrictMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -163,10 +165,6 @@ try:
     from localsettings import *
 except ImportError:
     raise
-
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-}
 
 INTERNAL_IPS = ('127.0.0.1',)
 

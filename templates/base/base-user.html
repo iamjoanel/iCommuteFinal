@@ -1,11 +1,6 @@
 {% extends "base/base.html" %}
 
 {% block content %}
-    <script>
-        $(document).ready(function(){
-
-        });
-    </script>
     <div class="row">
         <h1><a href="{% url 'user_panel' %}">{{ user.username }}</a><small>({{ user.email }})</small></h1>
         <hr>

@@ -1,8 +1,8 @@
 from django.conf.urls import (patterns, include, url)
 
-
 urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/routes/', include('accounts.urls')),
     url(r'^administration/', include('administration.urls')),
 )
 
@@ -13,6 +13,7 @@ urlpatterns += patterns('',
 urlpatterns += patterns('public.views',
     url(r'^$', 'home', name='home'),
 )
+
 
 
 # Examples:
