@@ -28,17 +28,32 @@
 
             {% endblock content %}
 
-
         </div>
+            <div id="myModal" class="reveal-modal small">
+                <h2>Search Route</h2>
+                    <form action="{% url 'search_route' %}" method="get">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="small-2 columns">
+                                <label for="origin" class="inline">Origin</label>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" name="origin" id="origin" placeholder="Origin">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-2 columns">
+                                <label for="destination" class="inline">Destination</label>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" name="destination" id="destination" placeholder="Destination">
+                            </div>
+                        </div>
 
-        <div class="footer">
-                <center>© iCommute with the collaboration of U.P. - N.C.T.S.</center><br>
-                <a href="/">Home</a> |&nbsp;
-                <a href="#">Request a Route</a> |&nbsp;
-                <a href="#">About Us</a>
-        </div>
-
-        </div>
+                        <button class="button expand" id="search-button">Search for Route</button>
+                    </form>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
         {% include "includes/main-footer.html" %}
     <script>
         document.write('<script src=' +

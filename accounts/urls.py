@@ -22,4 +22,7 @@ urlpatterns += patterns('route.views',
     url(r'^tp/add_train_path/$', 'public_add_train_path', name="public_add_train_path"),
     url(r'^tp/edit_train_path/(?P<pk>\d+)/$', 'public_edit_train_path', name="public_edit_train_path"),
     url(r'^tp/delete_train_path/(?P<pk>\d+)/$', login_required(PublicDeleteTrainPathView.as_view()), name="public_delete_train_path"),
+
+    url(r'^search_route/$', 'search_route', name="search_route"),
+    url(r'^view_route/(?P<pk>\d+)/$', 'view_route', name="view_route"),
 )
