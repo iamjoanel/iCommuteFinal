@@ -1,63 +1,59 @@
 {% extends "base/base-user.html" %}
 
 {% block user_content %}
-    <table>
+<div class="row panel">
+        <table>
         <thead>
             <tr>
-                <th></th>
-                <th>Origin</th>
-                <th>Origin City</th>
-                <th>Destination</th>
-                <th>Destination City</th>
-                <th>Total Distance</th>
-                <th>Total Cost</th>
+                <th>Mode</th>
+                <th>Origin Point</th>
+                <th>Destination Point</th>
+                <th>Distance</th>
+                <th>Cost</th>
+                <th>Time</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
         </thead>
         <tbody>
-                {% for p in route %}
+                {% for p in path %}
                 <tr>
-                    <td>
-                        {% if p.is_approved %}
-                            <span class="success label">Approved</span>
-                        {% else %}
-                            <span class="alert label">Pending</span>
-                        {% endif %}
-                    </td>
-                    <td>{{ p.origin|title }}</td>
-                    <td>{{ p.origin_city|title }}</td>
-                    <td>{{ p.destination|title }}</td>
-                    <td>{{ p.destination_city|title }}</td>
-                    <td>{{ p.total_distance }} KM</td>
-                    <td>Php {{ p.total_cost }}</td>
-                    <td><a href="{% url 'public_edit_route' pk=p.id %}">Edit</a></td>
-                    <td><a href="{% url 'public_delete_route' pk=p.id %}">Delete</a></td>
+                    <td>{{ p.mode }}</td>
+                    <td>{{ p.origin_point|title }}</td>
+                    <td>{{ p.destination_point|title }}</td>
+                    <td>{{ p.distance }} KM</td>
+                    <td>Php {{ p.cost }}</td>
+                    <td>{{ p.time|time:"H:i:s" }}</td>
+                    <td><a href="{% url 'public_edit_path' pk=p.id %}">Edit</a></td>
+                    <td><a href="{% url 'public_delete_path' pk=p.id %}">Delete</a></td>
+                </tr>
                 {% endfor %}
         </tbody>
     </table>
     <div class="pagination">
         <span class="add_button">
-            <a href="{% url 'public_add_route' %}" class="tiny button">Add Route</a>
+            <a href="{% url 'public_add_path' %}" class="tiny button">Add Path</a>
         </span>
         <span style="float:right;">
                 <ul class="pagination">
-                    {% if route.has_previous %}
+                    {% if path.has_previous %}
                     <li class="arrow unavailable">
-                        <a href="?page={{ route.previous_page_number }}">&laquo;</a>
+                        <a href="?page={{ path.previous_page_number }}">&laquo;</a>
                     </li>
                     {% endif %}
                     <span class="current">
                         <li>
-                            Page {{ route.number }} of {{ route.paginator.num_pages }}
+                            Page {{ path.number }} of {{ path.paginator.num_pages }}
                         </li>
                     </span>
-                    {% if route.has_next %}
+                    {% if path.has_next %}
                     <li class="arrow">
-                        <a href="?page={{ route.next_page_number }}">&raquo;</a>
+                        <a href="?page={{ path.next_page_number }}">&raquo;</a>
                     </li>
                     {% endif %}
                 </ul>
         </span>
     </div>
+
+</div>
 {% endblock user_content %}

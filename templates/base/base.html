@@ -23,10 +23,21 @@
 
     <body>
         {% include "includes/main-nav.html" %}
-        <div class="row">
+        <div class="container">
             {% block content %}
 
             {% endblock content %}
+
+
+        </div>
+
+        <div class="footer">
+                <center>© iCommute with the collaboration of U.P. - N.C.T.S.</center><br>
+                <a href="/">Home</a> |&nbsp;
+                <a href="#">Request a Route</a> |&nbsp;
+                <a href="#">About Us</a>
+        </div>
+
         </div>
         {% include "includes/main-footer.html" %}
     <script>

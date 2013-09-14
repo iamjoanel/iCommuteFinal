@@ -2,7 +2,8 @@
 
 {% block user_content %}
 {{ form.media }}
-    <div class="col_9" id='wrap'>
+<div class="row panel">
+	    <div class="col_9" id='wrap'>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p  }}
@@ -10,4 +11,5 @@
             <a href="{% url 'path_home' %}" class="button red">Cancel</a>
         </form>
     </div>
+</div>
 {% endblock user_content %}
