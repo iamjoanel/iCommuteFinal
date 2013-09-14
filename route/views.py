@@ -616,3 +616,30 @@ def public_train_path_home(request, template="route/public/train path/home.html"
         train_path = train_path_paginator.page(train_path_paginator.num_pages)
 
     return render_to_response(template, locals(), RequestContext(request))
+
+
+@login_required
+def view_route(request, pk, template="route/public/route/view-route.html"):
+    route = get_object_or_404(Route, pk=pk)
+    path = route.path.all()
+    train_path = route.train_path.all()
+    geoj = GeoJSON.GeoJSON()
+
+    path_format = Django.Django(geodjango="path", properties=["mode"])
+    path_json = geoj.encode(path_format.decode(path))
+    train_path_format = Django.Django(geodjango="path")
+    train_path_json = geoj.encode(train_path_format.decode(train_path))
+
+    return render_to_response(template, locals(), RequestContext(request))
+
+@login_required
+def search_route(request, template="route/public/route/results.html"):
+    if 'origin' and 'destination' in request.GET:
+        origin = request.GET['origin']
+        destination = request.GET['destination']
+
+        if origin and destination is not None:
+            query = origin + " To " + destination
+            routes_found = Route.objects.filter(is_approved=True).filter(origin__iexact=origin).filter(destination__iexact=destination).order_by('total_distance', 'total_cost')
+
+    return render_to_response(template, locals(), RequestContext(request))
