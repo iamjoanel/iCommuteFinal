@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
         <script src="{% static 'admin/js/OpenLayers.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/custom.modernizr.js' %}"></script>
@@ -27,8 +28,38 @@
             {% block content %}
 
             {% endblock content %}
+<<<<<<< HEAD
         </div>
         </div>
+=======
+
+        </div>
+            <div id="myModal" class="reveal-modal small">
+                <h2>Search Route</h2>
+                    <form action="{% url 'search_route' %}" method="get">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="small-2 columns">
+                                <label for="origin" class="inline">Origin</label>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" name="origin" id="origin" placeholder="Origin">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="small-2 columns">
+                                <label for="destination" class="inline">Destination</label>
+                            </div>
+                            <div class="small-10 columns">
+                                <input type="text" name="destination" id="destination" placeholder="Destination">
+                            </div>
+                        </div>
+
+                        <button class="button expand" id="search-button">Search for Route</button>
+                    </form>
+                <a class="close-reveal-modal">&#215;</a>
+            </div>
+>>>>>>> 70cc0432e08a9f052bc4c0a6f8d63c452110aa28
         {% include "includes/main-footer.html" %}
     <script>
         document.write('<script src=' +

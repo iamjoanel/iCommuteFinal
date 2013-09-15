@@ -10,6 +10,13 @@ footer {
 
     border: 1px solid #ccc;
 }
+
+.viewmap {
+    height: 400px;
+    width : relative;
+
+    border: 1px solid #ccc;
+}
       #legend {
           margin      : 5px;
           padding     : 5px;
@@ -19,6 +26,10 @@ footer {
           font-size   : 12px;
       }
 
+    #publiclegend {
+          font-family : Arial, sans-serif;
+          font-size   : 12px;
+      }
       .color {
           float       : left;
 

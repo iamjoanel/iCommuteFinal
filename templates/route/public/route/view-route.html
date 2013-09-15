@@ -1,0 +1,118 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<script type="text/javascript">
+    var path_geojson_data = {{ path_json|safe }}
+        train_path_geojson_data = {{ train_path_json|safe }}
+
+    $(document).ready(function(){
+        var map = new OpenLayers.Map('map');
+            geojson_parser = new OpenLayers.Format.GeoJSON();
+            base_layer = new OpenLayers.Layer.OSM("OpenStreetMap");
+        map.addLayer(base_layer);
+
+        train_path_style = new OpenLayers.Style({
+          'strokeWidth': 4,
+          'strokeLinecap': 'square',
+          'strokeColor': '#2D0AF5',
+          'strokeDashstyle': 'dot'
+        });
+
+        path_style = new OpenLayers.Style();
+
+        jeep_rule = new OpenLayers.Rule({
+          filter: new OpenLayers.Filter.Comparison({
+          type: OpenLayers.Filter.Comparison.LIKE,
+          property: "mode",
+          value: "Jeep",
+        }),
+          symbolizer: {
+            'strokeWidth': 3,
+            'strokeLinecap': 'square',
+            'strokeColor': '#F50A0A',
+            'strokeDashstyle': 'dash'
+          }
+        });
+
+        bus_rule = new OpenLayers.Rule({
+          filter: new OpenLayers.Filter.Comparison({
+          type: OpenLayers.Filter.Comparison.LIKE,
+          property: "mode",
+          value: "Bus",
+        }),
+          symbolizer: {
+            'strokeWidth': 3,
+            'strokeLinecap': 'square',
+            'strokeColor': '#F5870A',
+            'strokeDashstyle': 'dash'
+          }
+        });
+
+        walk_rule = new OpenLayers.Rule({
+          filter: new OpenLayers.Filter.Comparison({
+          type: OpenLayers.Filter.Comparison.LIKE,
+          property: "mode",
+          value: "Walk",
+        }),
+          symbolizer: {
+            'strokeWidth': 3,
+            'strokeLinecap': 'square',
+            'strokeColor': '#2BFF00',
+            'strokeDashstyle': 'solid'
+          }
+        });
+
+        path_style.addRules([jeep_rule, bus_rule, walk_rule])
+
+        path_layer = new OpenLayers.Layer.Vector("Path Layer", {
+          styleMap: new OpenLayers.StyleMap(path_style)
+        });
+        train_path_layer = new OpenLayers.Layer.Vector("Train Path Layer", {
+          styleMap: new OpenLayers.StyleMap(train_path_style)
+        });
+
+        path_layer.addFeatures(geojson_parser.read(path_geojson_data));
+        map.addLayer(path_layer);
+
+        train_path_layer.addFeatures(geojson_parser.read(train_path_geojson_data));
+        map.addLayer(train_path_layer);
+
+        // map.addControl(new OpenLayers.Control.LayerSwitcher());
+        map.setCenter(
+        new OpenLayers.LonLat(121.032, 14.594).transform(new OpenLayers.Projection("EPSG:4326"), map.getProjectionObject()), 12);
+        if(!map.getCenter()){
+          map.zoomToMaxExtent();
+        }
+    });
+</script>
+<div class="row panel">
+    <div class="small-12 columns">
+        <h1><i>From </i>{{ route.origin|title}},{{ route.origin_city|title }} <i>To </i>{{ route.destination|title}},{{ route.destination_city|title }}</h1>
+        <hr>
+    </div>
+    <div class="small-11 columns viewmap" id="map"></div>
+    <div class="small-1 columns" id="publiclegend">
+        <h6>Legend</h6>
+        <table cellspacing="0" cellpadding="0" class="tight">
+            <tr>
+                <td>
+                    <p><div class="color bus"></div>Bus</p>
+                    <p><div class="color jeep"></div>Jeep</p>
+                    <p><div class="color train"></div>Train</p>
+                    <p><div class="color walk"></div>Walk</p>
+                </td>
+            </tr>
+        </table>
+        <a href="#"
+            onclick="
+                window.open(
+                'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+                'facebook-share-dialog',
+                'width=626,height=436');
+                return false;">
+                <i class="icon-facebook-sign icon-3x"></i></a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"><i class="icon-twitter-sign icon-3x"></i></a></a>
+    </div>
+</div>
+
+{% endblock content %}
