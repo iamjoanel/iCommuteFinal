@@ -12,7 +12,7 @@ def home(request, template="mobile/mobile-home.html"):
     posts = Micropost.objects.all().order_by('-created')[:10]
     return render_to_response(template, locals(), RequestContext(request))
 
-def m_login(request, template="mobile/mobile-login.html"):
+def m_login(request, template="registration/login.html"):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():

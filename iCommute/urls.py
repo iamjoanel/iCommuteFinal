@@ -4,6 +4,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^accounts/routes/', include('accounts.urls')),
     url(r'^administration/', include('administration.urls')),
+    url(r'^mobile/', include('mobile.urls')),
 )
 
 urlpatterns += patterns('',
@@ -13,6 +14,8 @@ urlpatterns += patterns('',
 urlpatterns += patterns('public.views',
     url(r'^$', 'home', name='home'),
 )
+
+
 
 urlpatterns += patterns('microposts.views',
     url(r'^report/', 'new_post', name="new_post"),

@@ -6,13 +6,29 @@ However, this blank file is available if you prefer
 .container{
 
   background-color: white;
-  opacity: 0.8;
+  opacity: 0.9;
   color: black;
   line-height: 18px;
   margin: auto;
+  margin-top: 2%;
   max-width: 900px;
   min-width: 200px;
   padding: 20px;
   box-shadow: 2px 5px 22px #555;
 
+}
+
+
+.loginForm{
+  background-color: white;
+  color: black;
+  line-height: 18px;
+  margin: auto;
+  margin-top: 5%;
+  max-width: 330px;
+  min-width: 200px;
+  padding:10px;
+  bottom: 50%;
+
+  box-shadow: 2px 5px 22px #555;
 }
