@@ -12,6 +12,7 @@ urlpatterns += patterns('',
 
 urlpatterns += patterns('public.views',
     url(r'^$', 'home', name='home'),
+    url(r'^mobile/$', 'mobile', name='mobile'),
 )
 
 
