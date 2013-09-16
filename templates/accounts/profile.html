@@ -1,5 +1,30 @@
-{% extends "base/base-user.html" %}
+{% extends "base/base.html" %}
 
-{% block user_content %}
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, commodi, eaque, quis, voluptatibus modi consectetur ad ipsam mollitia minima aliquam laboriosam placeat dolorem molestias doloribus expedita adipisci veniam sunt omnis.
-{% endblock user_content %}
+{% block content %}
+<div class="row">
+    <div class="small-3 columns panel">
+        <h4>{{ user.username }}</h4>
+        <form action="{% url 'new_post' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+            <input type="hidden" value="{{ next_url }}" name="next_url">
+            <input type="submit" value="Submit" class="button expand success radius" id="content_button">
+        </form>
+    </div>
+  <div class="small-9 columns">
+    <h1>Road Status</h1>
+    {% for post in posts %}
+        <div class="reports">
+            <span class="name">{{ post.user.first_name|title }} {{ post.user.last_name|title }}</span>
+            <p>
+                {{ post.content }}
+            </p>
+            <span class="username">{{ post.user.username }}</span>
+            <span class="time"><small>{{ post.created|timesince }}</small></span>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock content %}

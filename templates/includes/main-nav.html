@@ -9,12 +9,17 @@
     <section class="top-bar-section">
         <ul class="left">
             <li class="divider"></li>
-            <li class="active"><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">Request Route</a></li>
+            <li><a href="{% url 'user_panel' %}">Home</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Routes</a></li>
+            <li class="divider"></li>
             <li><a href="#">About Us</a></li>
+            <li class="divider"></li>
             <li><a href="#" data-reveal-id="myModal">Search Route</a></li>
+            <li class="divider"></li>
         </ul>
         <ul class="right">
+            <li class="divider"></li>
                 {% if user.is_authenticated %}
                     <li class="has-dropdown">
                         <a href="{% url 'user_panel' %}">{{ user.username }}</a>
