@@ -42,6 +42,21 @@ body {
   box-shadow: 2px 5px 22px #555;
 }
 
+
+.loginForm{
+  background-color: white;
+  color: black;
+  line-height: 18px;
+  margin: auto;
+  margin-top: 5%;
+  max-width: 330px;
+  min-width: 200px;
+  padding:10px;
+  bottom: 50%;
+
+  box-shadow: 2px 5px 22px #555;
+}
+
 body {
 
   /*background-size: cover;*/

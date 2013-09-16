@@ -15,17 +15,24 @@
     </head>
 
     <body>
-    <div class="row">
+    <div class="loginForm">
         <form action="{% url 'auth_login' %}" method="post">
             {% csrf_token %}
             <center>
-            <table>
+            <table >
                 <th>
-                    <h1>Login</h1>
+                    <td><h1>Login</h1></td>
+                    <td></td>
                 </th>
-                    {% if form.non_field_errors %}
+                    
+                        {% if form.non_field_errors %}
+                        <div data-alert class="alert-box alert">
                             {{ form.non_field_errors|striptags }}
-                    {% endif %}
+                        <a href="#" class="close">&times;</a>
+                        </div>
+                        {% endif %}
+                     
+                    
                 <tr>
 
                     <td>
