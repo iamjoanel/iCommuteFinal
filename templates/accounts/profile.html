@@ -17,12 +17,12 @@
     <h1>Road Status</h1>
     {% for post in posts %}
         <div class="reports">
-            <span class="name">{{ post.user.first_name|title }} {{ post.user.last_name|title }}</span>
+            <span class="username">{{ post.user.username }}</span>
+            <span class="time"><small>{{ post.created|timesince }}</small></span>
+            {{ post.user.first_name }} {{ post.user.last_name }}
             <p>
                 {{ post.content }}
             </p>
-            <span class="username">{{ post.user.username }}</span>
-            <span class="time"><small>{{ post.created|timesince }}</small></span>
         </div>
     {% endfor %}
   </div>
