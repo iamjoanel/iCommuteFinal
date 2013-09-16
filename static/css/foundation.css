@@ -19,6 +19,7 @@ body {
 .footer{
 
   margin: auto;
+  margin-bottom: 5%;
   text-align: center;
   color: white;
   font-size: 12px;
@@ -29,6 +30,7 @@ body {
   font-weight: bold;
   box-shadow: 2px 5px 22px #555;
 
+
 }
 .container{
 
@@ -36,9 +38,25 @@ body {
   color: black;
   line-height: 18px;
   margin: auto;
+  margin-top: 1%;
   max-width: 900px;
   min-width: 200px;
   padding: 20px;
+  box-shadow: 2px 5px 22px #555;
+}
+
+
+.loginForm{
+  background-color: white;
+  color: black;
+  line-height: 18px;
+  margin: auto;
+  margin-top: 5%;
+  max-width: 330px;
+  min-width: 200px;
+  padding:10px;
+  bottom: 50%;
+
   box-shadow: 2px 5px 22px #555;
 }
 

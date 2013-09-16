@@ -15,7 +15,7 @@
     </head>
 
     <body>
-    <div class="row">
+    <div class="loginForm">
         <form action="" method="post">
             {% csrf_token %}
             <center>
@@ -29,10 +29,15 @@
                 {% endif %}
 
                 <th>
-                    <h1>Login</h1>
+                    <td><h1>Login</h1></td>
+                    <td></td>
+                
                 </th>
                     {% if form.non_field_errors %}
+                        <div data-alert class="alert-box alert">
                             {{ form.non_field_errors|striptags }}
+                            <a href="#" class="close">&times;</a>
+                        </div>                                
                     {% endif %}
                 <tr>
 

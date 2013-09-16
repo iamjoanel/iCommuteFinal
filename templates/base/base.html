@@ -28,7 +28,6 @@
             {% block content %}
 
             {% endblock content %}
-        </div>
             <div id="myModal" class="reveal-modal small">
                 <h2>Search Route</h2>
                     <form action="{% url 'search_route' %}" method="get">
@@ -48,9 +47,10 @@
                             <div class="small-10 columns">
                                 <input type="text" name="destination" id="destination" placeholder="Destination">
                             </div>
+                        <button class="button expand" id="search-button">Search for Route</button>
                         </div>
 
-                        <button class="button expand" id="search-button">Search for Route</button>
+
                     </form>
                 <a class="close-reveal-modal">&#215;</a>
             </div>
