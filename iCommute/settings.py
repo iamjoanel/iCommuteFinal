@@ -120,7 +120,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'mobile',
+
     'floppyforms',
     'registration',
 
@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'fare',
     'route',
     'administration',
+    'microposts',
 )
 
 # A sample logging configuration. The only tangible logging

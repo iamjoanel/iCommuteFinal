@@ -14,10 +14,9 @@ urlpatterns += patterns('public.views',
     url(r'^$', 'home', name='home'),
 )
 
-urlpatterns += patterns('mobile.views',
-    url(r'^mobile/$', 'mobile', name='mobile'),
+urlpatterns += patterns('microposts.views',
+    url(r'^report/', 'new_post', name="new_post"),
 )
-
 
 
 # Examples:
