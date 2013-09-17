@@ -3,9 +3,11 @@
 {% block content %}
 	
 	<div class="loginForm">
-        <form action="{% url 'auth_login' %}" method="post">
+
+                <form action="" method="post">
             {% csrf_token %}
             <center>
+            <table >
                 <th>
                     <td><h1>Login</h1></td>
                     <td></td>
@@ -71,7 +73,34 @@
         </form>
 
 
+
+
+
 	</div>
 
 
 {% endblock content%}
+
+<!--
+
+        <div class="twelve columns">
+
+        <center><h2>Login</h2></center>
+
+        <ul class="eleven columns"><center>
+            <form action="{% url 'auth_login' %}" method="post">
+            {% csrf_token %}
+        {% for form in login_form %}
+                            <label for="{{ form.auto_id }}">{{ form.label }}</label>
+                            <li class="field">{{ form }}</li>
+                        {% endfor %}
+                        <div class="medium primary btn"><input type="submit" value="Login" /></div>
+
+        </ul>
+        </form> 
+
+        </ul>
+
+</div>
+
+-->

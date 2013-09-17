@@ -3,10 +3,10 @@ from django.contrib import auth
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(widget=forms.TextInput(attrs={
-                               'placeholder': 'Username'}), max_length=100, required=True)
+
+    username = forms.CharField(widget=forms.TextInput(attrs={'type': "text", 'placeholder': "Username", 'id': "origin", 'name': "origin", 'class': "text input"}), max_length=100, required=True)
     password = forms.CharField(widget=forms.PasswordInput(
-        attrs={'placeholder': 'Password'}), required=True)
+        attrs={'type': "text", 'placeholder': "Password", 'id': "destination", 'name': "destination", 'class': "text input"}), required=True)
 
     def clean(self):
         username = self.cleaned_data.get('username')
