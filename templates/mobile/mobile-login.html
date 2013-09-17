@@ -1,24 +1,24 @@
 {% extends 'base/base-mobile.html' %}
 
 {% block content %}
-	
+
 	<div class="loginForm">
-        <form action="{% url 'auth_login' %}" method="post">
+        <form action="{% url 'm_login' %}" method="post">
             {% csrf_token %}
             <center>
                 <th>
                     <td><h1>Login</h1></td>
                     <td></td>
                 </th>
-                    
+
                         {% if form.non_field_errors %}
                         <div data-alert class="alert-box alert">
                             {{ form.non_field_errors|striptags }}
                         <a href="#" class="close">&times;</a>
                         </div>
                         {% endif %}
-                     
-                    
+
+
                 <tr>
 
                     <td>
@@ -44,26 +44,8 @@
                     </td>
                     <td></td>
                 </tr>
-
-                <tr>
-                    <td></td>
-                    <td><a href="/accounts/password/reset/">Forgot Password?</a></td>
-                    <td></td>
-                </tr>
-
-                <tr>
-                    <td></td>
-                    <td><a href="/accounts/register">New User? Sign up Now!</a></td>
-                    <td></td>
-                </tr>
-
-                <tr>
                     <td></td>
                     <td><button class="button">Login</button></td>
-
-                    <td>
-                        <input type="hidden" name="next" value="{{ next }}"/>
-                    </td>
                 </tr>
 
             </table>
