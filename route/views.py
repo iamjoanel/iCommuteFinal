@@ -1,7 +1,7 @@
 from django.shortcuts import (render_to_response, redirect, get_object_or_404)
 from django.template import RequestContext
 from django.contrib import messages
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView, TemplateView
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from vectorformats.Formats import Django, GeoJSON
@@ -12,6 +12,8 @@ from django.core.mail import send_mail
 from .forms import (TrainPathForm, PathForm, RouteForm)
 from .models import (TrainPath, Path, Route)
 from .utils import (calculate_cost, calculate_train_cost, distance_total, cost_total)
+from feedbacks.forms import FeedbackForm
+from feedbacks.models import Feedback
 
 def route_home(request, template="route/route/home.html", title="Route Management"):
     if request.user.is_superuser:
@@ -39,8 +41,8 @@ def add_route(request, template="route/route/route-form.html", title="Add Route"
             form.fields["train_path"].queryset = TrainPath.objects.filter(created_by=request.user)
             if form.is_valid():
                 instance = form.save(commit=False)
-                origin = instance.origin.split(',')
-                destination = instance.destination.split(',')
+                origin = instance.origin.strip(' \t\n\r').split(',')
+                destination = instance.destination.strip(' \t\n\r').split(',')
 
                 try:
                     x = origin[1]
@@ -171,16 +173,16 @@ def approve_route(request, pk):
 def notify_approval(pk, op):
     route = get_object_or_404(Route, pk=pk)
     user = get_object_or_404(User, pk=route.created_by.pk)
+    receiver = user.email
     if op:
         subject = "Route Approved"
-        receiver = user.email
-        message = "This is to notify you that the Route: %s you created on: %s was approved by the administrator" % (route, route.created)
+
+        message = "This is to notify you that the Route: %s you created on: %s was approved by the administrator\n\n\n\n\n iCommute Administrator" % (route, route.created)
     else:
         subject = "Route Disapproved"
-        receiver = user.email
-        message = "This is to notify you that the Route: %s you created on: %s was disapproved by the administrator" % (route, route.created)
+        message = "This is to notify you that the Route: %s you created on: %s was disapproved by the administrator\n\n\n\n\n iCommute Administrator" % (route, route.created)
 
-    send_mail(subject, message, "testwebmaster@local.com", [receiver], fail_silently=False)
+    send_mail(subject, message, "admin@icommute-ph.com", [receiver], fail_silently=False)
 
  # Path Views
 def path_home(request, template="route/path/home.html", title="Path Management"):
@@ -621,16 +623,21 @@ def public_train_path_home(request, template="route/public/train path/home.html"
 @login_required
 def view_route(request, pk, template="route/public/route/view-route.html"):
     route = get_object_or_404(Route, pk=pk)
-    path = route.path.all()
-    train_path = route.train_path.all()
-    geoj = GeoJSON.GeoJSON()
+    if route.is_approved == False:
+        return redirect('view_route_error')
+    else:
+        path = route.path.all()
+        train_path = route.train_path.all()
+        geoj = GeoJSON.GeoJSON()
+        form = FeedbackForm()
+        feedbacks = Feedback.objects.filter(route=route.pk).filter(approved=True).order_by('-date_posted')
 
-    path_format = Django.Django(geodjango="path", properties=["mode"])
-    path_json = geoj.encode(path_format.decode(path))
-    train_path_format = Django.Django(geodjango="path")
-    train_path_json = geoj.encode(train_path_format.decode(train_path))
+        path_format = Django.Django(geodjango="path", properties=["mode"])
+        path_json = geoj.encode(path_format.decode(path))
+        train_path_format = Django.Django(geodjango="path")
+        train_path_json = geoj.encode(train_path_format.decode(train_path))
 
-    return render_to_response(template, locals(), RequestContext(request))
+        return render_to_response(template, locals(), RequestContext(request))
 
 @login_required
 def search_route(request, template="route/public/route/results.html"):
@@ -643,3 +650,6 @@ def search_route(request, template="route/public/route/results.html"):
             routes_found = Route.objects.filter(is_approved=True).filter(origin__iexact=origin).filter(destination__iexact=destination).order_by('total_distance', 'total_cost')
 
     return render_to_response(template, locals(), RequestContext(request))
+
+class ViewError(TemplateView):
+    template_name = "route/public/route/error.html"

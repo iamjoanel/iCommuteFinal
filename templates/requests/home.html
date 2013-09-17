@@ -1,0 +1,49 @@
+{% extends "base/base-admin.html" %}
+
+
+{% block content %}
+<div class="container" id="wrap">
+    <center>
+        <h1><i class="icon-tasks"></i> Request Management</h1>
+    </center>
+    <table class="sortable">
+        <thead>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Times Requested</th>
+            <th>Status</th>
+            <th><i class="icon-trash icon-large"></i></th>
+        </thead>
+        <tbody>
+            {% for r in requests %}
+                <tr>
+                    <td>{{ r.origin }}</td>
+                    <td>{{ r.destination }}</td>
+                    <td>{{ r.count }}</td>
+                    <td>
+                        {% if not r.is_done %}
+                            <a href="{% url 'request_done' r.id %}"><i class="icon-check-empty icon-large tooltip" title="is not done"></i></a>
+                        {% else %}
+                            <i class="icon-check icon-large tooltip" title="is done"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_request' r.id %}"><i class="icon-trash icon-large tooltip" title="Delete"></i></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <div class="pagination">
+            {% if requests.has_previous %}
+                <a href="?page={{ requests.previous_page_number }}"><i class="icon-circle-arrow-left icon-large"></i></a>
+            {% endif %}
+            <span class="current">
+                Page {{ requests.number }} of {{ requests.paginator.num_pages }}
+            </span>
+            {% if requests.has_next %}
+                <a href="?page={{ requests.next_page_number }}"><i class="icon-circle-arrow-right icon-large"></i></a>
+            {% endif %}
+    </div>
+</div>
+{% endblock content %}

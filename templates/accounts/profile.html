@@ -11,22 +11,7 @@
     });
 </script>
 <div class="row">
-  <div class="small-12 columns">
     <h1>Road Status</h1>
-    {% for post in posts %}
-        <div class="reports">
-            <span class="username">{{ post.user.username }}</span>
-            <span class="time"><small>{{ post.created|timesince }}</small></span>
-            {{ post.user.first_name }} {{ post.user.last_name }}
-            <p>
-                {{ post.content }}
-            </p>
-        </div>
-    {% endfor %}
-  </div>
-
-</div>
-<div class="row">
         <div class="small-12 columns panel">
         <h4>{{ user.username }}</h4>
         <form action="{% url 'new_post' %}" method="post">
@@ -38,5 +23,22 @@
             <input type="submit" value="Submit" class="button expand success radius" id="content_button">
         </form>
     </div>
+</div>
+<div class="row">
+  <div class="small-12 columns" id="reportPanel">
+    <h2>Latest Reports</h2>
+    <hr>
+    {% for post in posts %}
+        <div class="reportWrapper">
+            <span class="name">{{ post.user.username }}</span>
+            <span class="time">{{ post.created|timesince }}</span>
+            {{ post.user.first_name }} {{ post.user.last_name }}
+            <p class="content">
+                {{ post.content }}
+            </p>
+        </div>
+    {% endfor %}
+  </div>
+
 </div>
 {% endblock content %}

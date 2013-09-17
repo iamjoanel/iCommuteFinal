@@ -83,6 +83,12 @@
         if(!map.getCenter()){
           map.zoomToMaxExtent();
         }
+      $('#comment-form').submit(function(e){
+        $.post("{% url 'add_feedback' %}", $(this).serialize(), function(data){
+          alert("Feedback Sent for inspection!");
+        });
+        e.preventDefault();
+      });
     });
 </script>
 <div class="row panel">
@@ -113,6 +119,67 @@
                 <i class="icon-facebook-sign icon-3x"></i></a>
         <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"><i class="icon-twitter-sign icon-3x"></i></a></a>
     </div>
+    <div class="small-12 columns">
+      <table>
+        <thead>
+          <tr>
+            <th width="300">Mode</th>
+            <th width="300">Origin</th>
+            <th width="300">Destination</th>
+            <th width="300">Cost</th>
+            <th width="300">Time</th>
+            <th width="300">Distance</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for path in route.path.all %}
+            <tr>
+              <td>{{ path.mode|title }}</td>
+              <td>{{ path.origin_point }}</td>
+              <td>{{ path.destination_point }}</td>
+              <td>PHP {{ path.cost }}</td>
+              <td>{{ path.time|time:"H:i:s"}}</td>
+              <td>{{ path.distance }} KM</td>
+            </tr>
+          {% endfor %}
+          {% for path in route.train_path.all %}
+            <tr>
+              <td>Train</td>
+              <td>{{ path.origin_station }}</td>
+              <td>{{ path.destination_station }}</td>
+              <td>PHP {{ path.cost }}</td>
+              <td>{{ path.time|time:"H:i:s"}}</td>
+              <td>{{ path.distance }} KM</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  <div id="feedback">
+    <h1>Feedback</h1>
+    <div>
+      {% for feedback in feedbacks %}
+        <div>
+          <span class="name">{{ feedback.user.username }}</span>
+          <span class="date"><small>{{ feedback.date_posted }}</small></span>
+          <p>
+            {{ feedback.comment }}
+          </p>
+        </div>
+      {% endfor %}
+      </div>
+      <form action="{% url 'add_feedback' %}" method="POST" id="comment-form">
+      {% csrf_token %}
+      {{ form.comment.label}} {{ form.comment }}
+      <div>
+        {{ feedback_form.comment.label }}<br>
+        {{ feedback_form.comment }}
+        <input type="hidden" name="route" value="{{ route.pk }}">
+        <input type="submit" class="button expand success radius">
+      </form>
+      </div>
+    </div>
+</div>
 </div>
 
 {% endblock content %}

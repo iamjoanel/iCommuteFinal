@@ -59,3 +59,42 @@ footer {
 #route tr:hover {
   background-color: #ccc;
 }
+
+.reportWrapper
+{
+  padding: 15px 15px 0;
+  border-bottom: 1px solid;
+}
+
+span.name
+{
+  font-size: 18px;
+  color: #58B84E
+}
+
+span.time{
+  font-size: 12px;
+  color: #000;
+}
+
+p.content {
+            margin: 5px 50px 0 90px;
+            padding: 0;
+            text-align: justify;
+            line-height: 1.5;
+            .antialiased(@text-color);
+            span.spacing {
+              padding-left: 9px;
+              margin-left: 9px;
+              height: 10px;
+              border-left: 1px solid @border-color;
+}
+
+div#reportPanel {
+      border: 1px solid;
+      background: white;
+      margin: 0;
+      margin-bottom: 29px;
+      border-radius: 6px;
+      font-size: 14px;
+}

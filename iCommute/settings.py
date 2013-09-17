@@ -130,6 +130,8 @@ INSTALLED_APPS = (
     'route',
     'administration',
     'microposts',
+    'requests',
+    'feedbacks',
 )
 
 # A sample logging configuration. The only tangible logging
