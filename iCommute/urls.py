@@ -18,6 +18,13 @@ urlpatterns += patterns('microposts.views',
     url(r'^report/', 'new_post', name="new_post"),
 )
 
+urlpatterns += patterns('requests.views',
+    url(r'^new_requests/$', 'new_requests', name="new_requests"),
+)
+
+urlpatterns += patterns('feedbacks.views',
+    url(r'^add_feedback/$', 'add_feedback', name="add_feedback"),
+)
 
 # Examples:
 # url(r'^$', 'iCommute.views.home', name='home'),

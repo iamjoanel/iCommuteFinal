@@ -1,0 +1,16 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+<div id="wrap">
+    <center>
+    <h1>Delete Feedback <br>
+    Are you sure you want to Delete this feedback?
+    <form action="{% url 'delete_feedback' pk=feedback.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+        <input type="button" value="No" onClick="parent.location='{% url 'feedback_home' %}'">
+    </form>
+    </h1>
+    </center>
+</div>
+{% endblock content %}

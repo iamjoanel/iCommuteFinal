@@ -1,0 +1,52 @@
+{% extends "base/base-admin.html" %}
+{% block content %}
+<div id="wrap">
+    <center>
+        <h1><i class="icon-group"></i> Feedback Management</h1>
+    </center>
+    <table class="sortable">
+        <thead>
+            <tr class="alt first last">
+                <th>User</th>
+                <th>Comment</th>
+                <th>Date Posted</th>
+                <th>Approved</th>
+                <th><i class="icon-remove"></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for feedback in feedback %}
+        <tr>
+            <td>{{ feedback.user }}</td>
+            <td>{{ feedback.comment|truncatechars:50|linebreaks }}</td>
+            <td>{{ feedback.date_posted }}</td>
+            <td>
+                {% if not feedback.approved %}
+                    <a href="{% url 'approve' feedback.id %}"><i class="icon-thumbs-up icon-large tooltip" title="Approve"></i></a>
+                {% else %}
+                    <a href="{% url 'approve' feedback.id %}"><i class="icon-thumbs-down icon-large tooltip" title="Dispprove"></i></a>
+                {% endif %}
+            </td>
+            <td><a href="{% url 'delete_feedback' feedback.id %}"><i class="icon-remove tooltip" title="Delete"></i></a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if feedback.has_previous %}
+                <a href="?page={{ feedback.previous_page_number }}"><i class="icon-circle-arrow-left icon-large"></i></a>
+            {% endif %}
+            <span class="current">
+                Page {{ feedback.number }} of {{ feedback.paginator.num_pages }}
+            </span>
+            {% if feedback.has_next %}
+                <a href="?page={{ feedback.next_page_number }}"><i class="icon-circle-arrow-right icon-large"></i></a>
+            {% endif %}
+        </span>
+    </div>
+
+</div>
+
+{% endblock content %}

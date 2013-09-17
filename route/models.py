@@ -76,8 +76,8 @@ class TrainPath(models.Model):
 
 
 class Route(models.Model):
-    origin = models.CharField(max_length=50)
-    destination = models.CharField(max_length=50)
+    origin = models.CharField(max_length=50, help_text="Origin, Origin City")
+    destination = models.CharField(max_length=50, help_text="Destination, Destination City")
     origin_city = models.CharField(max_length=50, blank=True)
     destination_city = models.CharField(max_length=50, blank=True)
     total_distance = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)

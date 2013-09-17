@@ -1,0 +1,16 @@
+{% extends "base/base-admin.html" %}
+
+{% block content %}
+<div id='wrap' class="center">
+
+    <h1>Delete Request
+    <p>Are you sure you want to Delete this request <br>
+        <strong>{{ request }} ?</strong></p>
+    <form action="{% url 'delete_request' pk=request.id %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+        <input type="button" value="No" onClick="parent.location='{% url 'request_home' %}'">
+    </form>
+    </h1>
+</div>
+{% endblock content %}

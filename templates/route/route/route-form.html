@@ -5,7 +5,10 @@
     <div class="col_9" id='wrap'>
         <form action="" method="post">
             {% csrf_token %}
-            {{ form.as_p  }}
+            {% for field in form %}
+                {{ field.label}}  <small>{{ field.help_text}}</small>
+                {{ field }}
+            {% endfor %}
             <button type="submit" class="green">Submit</button>
             <input type=button value="Cancel" onClick="javascript:history.go(-1);" class="button red">
         </form>
