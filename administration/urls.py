@@ -1,11 +1,10 @@
 from django.conf.urls import (patterns, url, include)
-from django.views.generic import TemplateView
-
 
 urlpatterns = patterns('',
     url(r'^fare/', include('fare.urls')),
     url(r'^route/', include('route.urls')),
-
+    url(r'^requests/', include('requests.urls')),
+    url(r'^feedbacks/', include('feedbacks.urls')),
 )
 
 urlpatterns += patterns('administration.views',

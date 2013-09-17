@@ -1,8 +1,7 @@
 from django.conf.urls import (patterns, url)
 from django.contrib.auth.decorators import login_required
 
-from route.views import (PublicDeletePathView, PublicDeleteTrainPathView, PublicDeleteRouteView)
-
+from route.views import (PublicDeletePathView, PublicDeleteTrainPathView, PublicDeleteRouteView, ViewError)
 
 urlpatterns = patterns('',
 )
@@ -25,4 +24,7 @@ urlpatterns += patterns('route.views',
 
     url(r'^search_route/$', 'search_route', name="search_route"),
     url(r'^view_route/(?P<pk>\d+)/$', 'view_route', name="view_route"),
+    url(r'^view_route_error/$', login_required(ViewError.as_view()), name="view_route_error"),
+
 )
+

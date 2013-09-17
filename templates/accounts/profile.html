@@ -11,14 +11,26 @@
     });
 </script>
 <div class="row">
-  <div class="small-12 columns">
+    <div class="small-3 columns">
+        <h4>{{ user.username }}</h4>
+        <form action="{% url 'new_post' %}" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                {{ field }}
+            {% endfor %}
+            <input type="hidden" value="{{ next_url }}" name="next_url">
+            <input type="submit" value="Submit" class="button expand success radius" id="content_button">
+        </form>
+    </div>
+  <div class="small-9 columns" id="reportPanel">
     <h1>Road Status</h1>
+    <hr>
     {% for post in posts %}
-        <div class="reports">
-            <span class="username">{{ post.user.username }}</span>
-            <span class="time"><small>{{ post.created|timesince }}</small></span>
+        <div class="reportWrapper">
+            <span class="name">{{ post.user.username }}</span>
+            <span class="time">{{ post.created|timesince }}</span>
             {{ post.user.first_name }} {{ post.user.last_name }}
-            <p>
+            <p class="content">
                 {{ post.content }}
             </p>
         </div>

@@ -8,9 +8,9 @@
             {% csrf_token %}
             {{ form.as_p  }}
             <button type="submit" class="green">Submit</button>
-            <a href="{% url 'path_home' %}" class="button red">Cancel</a>
+            <a href="{% url 'public_train_path_home' %}" class="button red">Cancel</a>
         </form>
-    </div>	
+    </div>
 
     </div>
 {% endblock user_content %}
