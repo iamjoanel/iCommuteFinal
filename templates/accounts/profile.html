@@ -11,7 +11,8 @@
     });
 </script>
 <div class="row">
-    <div class="small-3 columns">
+    <h1>Road Status</h1>
+        <div class="small-12 columns panel">
         <h4>{{ user.username }}</h4>
         <form action="{% url 'new_post' %}" method="post">
             {% csrf_token %}
@@ -22,8 +23,10 @@
             <input type="submit" value="Submit" class="button expand success radius" id="content_button">
         </form>
     </div>
-  <div class="small-9 columns" id="reportPanel">
-    <h1>Road Status</h1>
+</div>
+<div class="row">
+  <div class="small-12 columns" id="reportPanel">
+    <h2>Latest Reports</h2>
     <hr>
     {% for post in posts %}
         <div class="reportWrapper">
@@ -37,18 +40,5 @@
     {% endfor %}
   </div>
 
-</div>
-<div class="row">
-        <div class="small-12 columns panel">
-        <h4>{{ user.username }}</h4>
-        <form action="{% url 'new_post' %}" method="post">
-            {% csrf_token %}
-            {% for field in form %}
-                {{ field }}
-            {% endfor %}
-            <input type="hidden" value="{{ next_url }}" name="next_url">
-            <input type="submit" value="Submit" class="button expand success radius" id="content_button">
-        </form>
-    </div>
 </div>
 {% endblock content %}
