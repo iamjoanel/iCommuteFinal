@@ -16,3 +16,18 @@ class RequestForm(forms.ModelForm):
             ),
             'count': forms.HiddenInput(),
         }
+
+
+class MobileRequestForm(forms.ModelForm):
+    class Meta:
+        model = Request
+        excludes = ('is_done', 'requested', )
+        widgets = {
+            'origin': forms.TextInput(attrs=
+                  {'type': "text", 'placeholder': "Origin", 'class': 'input'}
+            ),
+            'destination': forms.TextInput(attrs=
+            {'type': "text", 'placeholder': "Destination", 'class': 'input'}
+            ),
+            'count': forms.HiddenInput(),
+        }

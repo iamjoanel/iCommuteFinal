@@ -86,6 +86,7 @@
       $('#comment-form').submit(function(e){
         $.post("{% url 'add_feedback' %}", $(this).serialize(), function(data){
           alert("Feedback Sent for inspection!");
+          $("#feedform").val('');
         });
         e.preventDefault();
       });
@@ -117,7 +118,7 @@
                 'width=626,height=436');
                 return false;">
                 <i class="icon-facebook-sign icon-3x"></i></a>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"><i class="icon-twitter-sign icon-3x"></i></a></a>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-lang="en"><i class="icon-twitter-sign icon-3x"></i></a>
     </div>
     <div class="small-12 columns">
       <table>
@@ -172,8 +173,6 @@
       {% csrf_token %}
       {{ form.comment.label}} {{ form.comment }}
       <div>
-        {{ feedback_form.comment.label }}<br>
-        {{ feedback_form.comment }}
         <input type="hidden" name="route" value="{{ route.pk }}">
         <input type="submit" class="button expand success radius">
       </form>

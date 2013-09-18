@@ -24,3 +24,18 @@ class LoginForm(forms.Form):
         user = auth.authenticate(username=username, password=password)
 
         return user
+
+
+class SearchForm(forms.Form):
+    origin = forms.CharField(widget=forms.TextInput(attrs={'type': "text", 'placeholder': "Origin", 'id': "origin", 'name': "origin", 'class': "text input"}))
+    destination = forms.CharField(widget=forms.TextInput(attrs={'type': "text", 'placeholder': "Destination", 'id': "destination", 'name': "destination", 'class': "text input"}))
+
+    def cleaned_origin(self):
+        if self.cleaned_data['origin'] is None:
+            raise forms.ValidationError("Some fields were left blank.")
+        return self.cleaned_data['origin']
+
+    def cleaned_destination(self):
+        if self.cleaned_data['destination'] is None:
+            raise forms.ValidationError("Some fields were left blank.")
+        return self.cleaned_data['destination']

@@ -1,0 +1,41 @@
+{% extends "base/base-mobile-user.html" %}
+
+{% block content %}
+<div class="container">
+{% if messages %}
+    <section id="messages">
+        {% for message in messages %}
+            <div class="{% if message.tags == 'SUCCESS' %}success {% else %} danger {% endif %} alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </section>
+{% endif %}
+    <h2>Request for a Route</h2>
+    <hr>
+        <form action="{% url 'm_new_requests' %}" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="four columns">
+                    {{ form.origin.label }}
+                </div>
+                <div class="eight columns field">
+                    {{ form.origin }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    {{ form.destination.label }}
+                </div>
+                <div class="eight columns field">
+                    {{ form.destination }}
+                </div>
+        </div>
+        <div class="row">
+            <div class="primary btn medium centered ten columns">
+                <input type="submit" value="Submit">
+            </div>
+        </div>
+        </form>
+</div>
+{% endblock content %}

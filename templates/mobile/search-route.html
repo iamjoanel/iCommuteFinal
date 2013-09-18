@@ -1,0 +1,44 @@
+{% extends "base/base-mobile-user.html" %}
+
+{% block content %}
+<div class="row container">
+    <div class="twelve columns">
+        <h2>Search Route</h2>
+        <hr>
+        {% if form.non_field_errors %}
+            <div data-alert class="danger alert">
+                {{ form.non_field_errors|striptags }}
+            </div>
+        {% endif %}
+        <form action="{% url 'm_search_route' %}" method="get">
+            <div class="row">
+                <div class="four columns"></div>
+                <div class="eight columns">
+                    {% if form.origin.errors %}
+                        <div class="danger alert">{{ form.origin.errors|striptags }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    <label for="origin">Origin</label>
+                </div>
+                <div class="eight columns field">
+                    <input class="input" type="text" name="origin" id="origin" placeholder="Origin">
+                </div>
+            </div>
+            <div class="row">
+                <div class="four columns">
+                    <label for="destination">Destination</label>
+                </div>
+                <div class="eight columns field">
+                    <input class="input" type="text" name="destination" id="destination" placeholder="Destination">
+                </div>
+            </div>
+            <div class="primary btn medium centered ten columns">
+                <input type="submit" value="Search Route">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}
