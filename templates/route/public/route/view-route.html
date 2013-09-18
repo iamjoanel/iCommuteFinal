@@ -160,7 +160,7 @@
     <h1>Feedback</h1>
     <div>
       {% for feedback in feedbacks %}
-        <div>
+        <div class="reportWrapper">
           <span class="name">{{ feedback.user.username }}</span>
           <span class="date"><small>{{ feedback.date_posted }}</small></span>
           <p>
