@@ -7,7 +7,7 @@ class FeedbackForm(forms.ModelForm):
         model = Feedback
         exclude = ('date_posted', 'approved', 'user', )
         widgets = {
-            'comment': forms.Textarea(attrs={'class': "span10"}),
+            'comment': forms.Textarea(attrs={'class': "span10", 'placeholder': 'Your Feedback Here', 'id': 'feedform'}),
             'route': forms.HiddenInput()
         }
 
@@ -21,6 +21,6 @@ class FeedbackFormMobile(forms.ModelForm):
         model = Feedback
         exclude = ('date_posted', 'approved', 'user', )
         widgets = {
-            'comment': forms.Textarea(attrs={'class': "input textearea", 'style': "height:100px;"}),
+            'comment': forms.Textarea(attrs={'class': "input", 'style': "height:100px;", 'placeholder': 'Your Feedback Here', 'id': 'feedform'}),
             'route': forms.HiddenInput()
         }

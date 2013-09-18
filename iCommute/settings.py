@@ -176,8 +176,10 @@ EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
 
-LOGIN_URL = '/administration/login/'
+LOGIN_URL_ADMIN = '/administration/login/'
+LOGIN_URL = '/accounts/login/'
 LOGIN_EXEMPT_URLS = (
     r'^$',
-    r'^accounts/',
+    r'^accounts',
+    r'^mobile',
 )

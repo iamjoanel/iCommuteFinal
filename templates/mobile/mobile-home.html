@@ -1,39 +1,38 @@
-{% extends 'base/base-mobile.html' %}
+{% extends 'base/base-mobile-user.html' %}
 
 {% block content %}
-
-
-<div class="container">
-<div class="row">
-	<div class="twelve columns">
-		<ul class="eleven columns">
-			<div class="four columns image rounded">
-     			 <img src="/static/img/iCommute.png">
-    		</div>
-            <h3>About iCommute</h3> 
-            <p align="justify">
-                
-                iCommute: A Mobile Commuter's Map is a Project developed by the students
-                of FEU East-Asia College. The purpose of this Application is to aide the
-                commuters in the event of the unfamiliar with the place and does not know
-                how to reach the destination. The Application provide a route displaying to
-                the map on how to go to their destination and it will display the what mode
-                of transportation will be use and the estimated time and cost of each travel.
-            </p>
-            <center>
-            	<div class="pretty">
-            	<div class="medium secondary btn"><a href="login/">Login</a></div>
-            	<div class="medium secondary btn"><a href="{% url 'registration_register' %}">Sign Up</a></div>
-            	</div>
-
-            </center>
-		</ul>
-		</form>	
-
-		</ul>
-
-	</div>
-</div>
-</div>
-
+    <div class="row container">
+        <div class="three columns">
+            <h3>{{ request.user.username }}</h3>
+            <hr>
+            <form action="{% url 'new_report' %}" method="post">
+                {% csrf_token %}
+                <div class="field">
+                    {{ form.content }}
+                </div>
+                <div class="row">
+                    <div class="six columns"></div>
+                    <div class="six columns">
+                        <div class="medium secondary btn">
+                            <input type="Submit" value="Submit">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="push_one eight columns">
+            <h2>Road Status</h2>
+            <hr>
+            {% for post in posts %}
+                <div class="reportWrapper">
+                    <span class="name">{{ post.user.username }}</span>
+                    <span class="time">{{ post.created|timesince }}</span>
+                    {{ post.user.first_name }} {{ post.user.last_name }}
+                    <p class="content">
+                        {{ post.content }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

@@ -1,0 +1,55 @@
+{% extends "base/base-mobile-user.html" %}
+
+{% block content %}
+<script>
+    $(document).ready(function(){
+        $("#results tr").click(function(){
+            var href = $(this).find("a").attr("href");
+            if(href) {
+                window.location = href;
+            }
+        });
+    });
+</script>
+        {% if routes_found %}
+        <div class="row container">
+            <h2>{{ query }}</h2>
+            <table id="results">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Origin</th>
+                        <th>Origin City</th>
+                        <th>Destination</th>
+                        <th>Destination City</th>
+                        <th>Total Distance</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in routes_found %}
+                        <tr>
+                            <td><a href="{% url 'm_view_route' r.id %}"></a></td>
+                            <td>{{ r.origin|title }}</td>
+                            <td>{{ r.origin_city|title }}</td>
+                            <td>{{ r.destination|title }}</td>
+                            <td>{{ r.destination_city|title }}</td>
+                            <td>{{ r.total_distance }} KM</td>
+                            <td>PHP {{ r.total_cost }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <div class="row container">
+                <center>
+                <h1>
+                    <i class="icon-attention"></i>
+                    No Routes Found!
+                </h1>
+                </center>
+            </div>
+        {% endif %}
+
+{% endblock content %}

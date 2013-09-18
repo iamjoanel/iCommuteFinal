@@ -1,0 +1,16 @@
+<div class="navbar" id="nav1">
+    <div class="row">
+    <a class="toggle" gumby-trigger="#nav1 &gt; ul" href="#"><i class="icon-menu"></i></a>
+        <span class="three columns">
+            <ul>
+                <li><a href="#">iCommute</a></li>
+            </ul>
+        </span>
+     <ul class="three columns">
+         <li><a href="{% url 'mobile_home' %}"><i class="icon-home"></i> Home</a></li>
+         <li><a href="{% url 'm_search_route' %}"><i class="icon-location"></i> Search for a Route</a></li>
+         <li><a href="{% url 'm_new_requests' %}"><i class="icon-list"></i> Request a Route</a></li>
+         <li><a href="{% url 'm_logout' %}"><i class="icon-key"></i> Logout</a></li>
+     </ul>
+    </div>
+</div>
