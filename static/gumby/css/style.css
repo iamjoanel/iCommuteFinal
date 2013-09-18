@@ -6,6 +6,21 @@
   margin: auto;
   margin-top: 2%;
   max-width: 900px;
+  min-width: 200px;
+  padding: 20px;
+  box-shadow: 2px 5px 22px #555;
+
+}
+
+
+.viewRouteContainer{
+
+  background-color: white;
+  color: black;
+  line-height: 18px;
+  margin: auto;
+  margin-top: 2%;
+  max-width: 900px;
   min-width: 600px;
   padding: 20px;
   box-shadow: 2px 5px 22px #555;
