@@ -12,7 +12,7 @@
 </script>
 <div class="row">
     <h1>Road Status</h1>
-        <div class="small-12 columns panel">
+        <div class="small-5 columns panel">
         <h4>{{ user.username }}</h4>
         <form action="{% url 'new_post' %}" method="post">
             {% csrf_token %}
@@ -23,10 +23,8 @@
             <input type="submit" value="Submit" class="button expand success radius" id="content_button">
         </form>
     </div>
-</div>
-<div class="row">
-  <div class="small-12 columns" id="reportPanel">
-    <h2>Latest Reports</h2>
+    <div class="small-7 columns panel" id="reportPanel">
+        <h3>Latest Reports</h3>
     <hr>
     {% for post in posts %}
         <div class="reportWrapper">
@@ -36,9 +34,12 @@
             <p class="content">
                 {{ post.content }}
             </p>
-        </div>
+        </div><br>
     {% endfor %}
   </div>
+</div>
+<div class="row">
+  
 
 </div>
 {% endblock content %}
