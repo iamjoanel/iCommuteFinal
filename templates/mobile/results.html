@@ -1,6 +1,7 @@
 {% extends "base/base-mobile-user.html" %}
 
 {% block content %}
+<div class="container">
 <script>
     $(document).ready(function(){
         $("#results tr").click(function(){
@@ -12,8 +13,7 @@
     });
 </script>
         {% if routes_found %}
-        <div class="row">
-            <div class="container">
+        <div class="row">            
                 <div class="twelve columns">
                     <h2>{{ query }}</h2>
                     <table id="results">
@@ -63,21 +63,18 @@
                     </div>
                 </div>                     
             
-            </div>     
-        </div>
-
-        
+             
+        </div>       
 
 
         {% else %}
-            <div class="row container">
+            
                 <center>
                 <h1>
                     <i class="icon-attention"></i>
                     No Routes Found!
                 </h1>
                 </center>
-            </div>
         {% endif %}
-
+</div>
 {% endblock content %}
