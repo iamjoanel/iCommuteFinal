@@ -420,6 +420,7 @@ def public_edit_route(request, pk, template="route/public/route/route-form.html"
             instance = form.save(commit=False)
             origin = instance.origin.split(',')
             destination = instance.destination.split(',')
+            instance.is_approved = False
 
             try:
                 x = origin[1]
