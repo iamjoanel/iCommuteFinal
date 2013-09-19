@@ -50,10 +50,10 @@ class RouteForm(forms.ModelForm):
         model = Route
         exclude = ('total_distance', 'total_cost', 'origin_city', 'destination_city', 'is_approved', 'created_by',)
         widgets = {
-            'origin': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City"}),
-            'destination': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City"}),
-            'path': forms.SelectMultiple(),
-            'train_path': forms.SelectMultiple(),
+            'origin': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City", 'class': 'col_8'}),
+            'destination': forms.TextInput(attrs={'placeholder': "SM Mall of Asia, Pasay City", 'class': 'col_8'}),
+            'path': forms.SelectMultiple(attrs={'class': 'col_7'}),
+            'train_path': forms.SelectMultiple(attrs={'class': 'col_7'}),
         }
 
     class Media:

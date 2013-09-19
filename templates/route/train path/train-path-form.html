@@ -3,6 +3,11 @@
 {% block content %}
 {{ form.media }}
     <div class="col_9" id='wrap'>
+        <center>
+            <h1>
+                Train Path Form
+            </h1>
+        </center>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p  }}
