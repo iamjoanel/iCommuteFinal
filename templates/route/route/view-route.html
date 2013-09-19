@@ -103,26 +103,29 @@
       </tr>
     </thead>
     <tbody>
-    <tr>
+
       {% for p in path %}
-      <td>{{ p.mode }}</td>
-      <td>{{ p.origin_point }}</td>
-      <td>{{ p.destination_point }}</td>
-      <td>{{ p.distance }} KM</td>
-      <td>PHP {{ p.cost }}</td>
-      <td>{{ p.time|time:"H:i:s" }}</td>
+      <tr>
+        <td>{{ p.mode }}</td>
+        <td>{{ p.origin_point }}</td>
+        <td>{{ p.destination_point }}</td>
+        <td>{{ p.distance }} KM</td>
+        <td>PHP {{ p.cost }}</td>
+        <td>{{ p.time|time:"H:i:s" }}</td>
+      </tr>
       {% endfor %}
-    </tr>
-    <tr>
+
+
       {% for p in train_path %}
-      <td>Train</td>
-      <td>{{ p.origin_station }}</td>
-      <td>{{ p.destination_station }}</td>
-      <td>{{ p.distance }} KM</td>
-      <td>PHP {{ p.cost }}</td>
-      <td>{{ p.time|time:"H:i:s" }}</td>
+      <tr>
+        <td>Train</td>
+        <td>{{ p.origin_station }}</td>
+        <td>{{ p.destination_station }}</td>
+        <td>{{ p.distance }} KM</td>
+        <td>PHP {{ p.cost }}</td>
+        <td>{{ p.time|time:"H:i:s" }}</td>
+      </tr>
       {% endfor %}
-    </tr>
     </tbody>
   </table>
   <a href="{% url 'delete_route' route.id %}" class="button red">Delete Route</a>
