@@ -12,7 +12,8 @@
     });
 </script>
         {% if routes_found %}
-        <div class="viewRouteContainer">
+        <div class="row">
+            <div class="container">
             <h2>{{ query }}</h2>
             <table id="results">
                 <thead>
@@ -21,9 +22,6 @@
                         <th>Origin</th>
                         <th>Origin City</th>
                         <th>Destination</th>
-                        <th>Destination City</th>
-                        <th>Total Distance</th>
-                        <th>Total Cost</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,6 +39,35 @@
                 </tbody>
             </table>
         </div>
+
+        </div>
+
+        <div class="row">
+            <div class="container">
+            <h2>{{ query }}</h2>
+            <table id="results">
+                <thead>
+                    <tr>
+                        <th>Destination City</th>
+                        <th>Total Distance</th>
+                        <th>Total Cost</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in routes_found %}
+                        <tr>
+                        <td>{{ r.destination_city|title }}</td>
+                        <td>{{ r.total_distance }} KM</td>
+                        <td>PHP {{ r.total_cost }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        </div>
+
+
         {% else %}
             <div class="row container">
                 <center>
