@@ -33,13 +33,20 @@
 	<script src="{% static 'gumby/js/libs/modernizr-2.6.2.min.js' %}"></script>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script type="text/javascript" src="{% static 'js/vendor/jquery.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/js.responsivetable.jquery.js' %}"></script>
 	<!-- <link rel="stylesheet" href="css/style.css"> -->	
 	
 
 </head>
 
 <body>
+
 	{% include "includes/mobile-nav.html" %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('table').responsiveTable();
+});
+	</script>
 	{% block content %}
 
 	{% endblock content %}
