@@ -12,7 +12,7 @@
             <li>Destination Point:<strong> {{ trainpath.destination_station }}</strong></li>
             <li>Distance: <strong>{{ trainpath.distance }} KM</strong></li>
             <li>Cost: <strong>Php {{ trainpath.cost }}</strong></li>
-            <li>Time: <strong>{{ trainpath.time }}</strong></li>
+            <li>Time: <strong>{{ trainpath.time|time:"H:i:s" }}</strong></li>
         </ul>
     </p>
     <form action="{% url 'public_delete_train_path' pk=trainpath.id %}" method="POST">

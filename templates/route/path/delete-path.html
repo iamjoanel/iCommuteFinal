@@ -14,7 +14,7 @@
             <li>Destination Point:<strong> {{ path.destination_point }}</strong></li>
             <li>Distance: <strong>{{ path.distance }} KM</strong></li>
             <li>Cost: <strong>Php {{ path.cost }}</strong></li>
-            <li>Time: <strong>{{ path.time }}</strong></li>
+            <li>Time: <strong>{{ path.time|time:"H:i:s" }}</strong></li>
         </ul>
     </p>
     <form action="{% url 'delete_path' pk=path.id %}" method="POST">
