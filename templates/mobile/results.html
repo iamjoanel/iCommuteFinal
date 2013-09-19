@@ -14,52 +14,53 @@
         {% if routes_found %}
         <div class="row">
             <div class="container">
-            <h2>{{ query }}</h2>
-            <table id="results">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Origin</th>
-                        <th>Origin City</th>
-                        <th>Destination</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for r in routes_found %}
+                <h2>{{ query }}</h2>
+                <table id="results">
+                    <thead>
                         <tr>
-                            <td><a href="{% url 'm_view_route' r.id %}"></a></td>
-                            <td>{{ r.origin|title }}</td>
-                            <td>{{ r.origin_city|title }}</td>
-                            <td>{{ r.destination|title }}</td>
+                            <th></th>
+                            <th>Origin</th>
+                            <th>Origin City</th>
+                            <th>Destination</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody>
+                        {% for r in routes_found %}
+                            <tr>
+                                <td><a href="{% url 'm_view_route' r.id %}"></a></td>
+                                <td>{{ r.origin|title }}</td>
+                                <td>{{ r.origin_city|title }}</td>
+                                <td>{{ r.destination|title }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
 
-        </div>
-
-        <div class="row">
-            <table id="results">
-                <thead>
-                    <tr>
-                        <th>Destination City</th>
-                        <th>Total Distance</th>
-                        <th>Total Cost</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for r in routes_found %}
+            <div class="row">
+                <table id="results">
+                    <thead>
                         <tr>
-                        <td>{{ r.destination_city|title }}</td>
-                        <td>{{ r.total_distance }} KM</td>
-                        <td>PHP {{ r.total_cost }}</td>
+                            <th>Destination City</th>
+                            <th>Total Distance</th>
+                            <th>Total Cost</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {% for r in routes_found %}
+                            <tr>
+                            <td>{{ r.destination_city|title }}</td>
+                            <td>{{ r.total_distance }} KM</td>
+                            <td>PHP {{ r.total_cost }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
 
         </div>
+
+        
 
 
         {% else %}
