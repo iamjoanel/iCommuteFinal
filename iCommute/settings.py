@@ -172,14 +172,14 @@ except ImportError:
 INTERNAL_IPS = ('127.0.0.1',)
 
 ACCOUNT_ACTIVATION_DAYS = 3
-# EMAIL_HOST = 'smtp.webfaction.com'
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = "icommute"
-# EMAIL_HOST_PASSWORD = "icommuteadmin"
-# EMAIL_USE_TLS = True
-# DEFAULT_FROM_EMAIL = 'admin@icommute-ph.com'
-# SERVER_EMAIL = 'admin@icommute-ph.com'
-# SITE_ID = 5 # 3 for icommute.webfactional.com 5 for icommute-ph.com
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "icommute"
+EMAIL_HOST_PASSWORD = "icommuteadmin"
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'admin@icommute-ph.com'
+SERVER_EMAIL = 'admin@icommute-ph.com'
+SITE_ID = 5 # 3 for icommute.webfactional.com 5 for icommute-ph.com
 
 LOGIN_URL_ADMIN = '/administration/login/'
 LOGIN_URL = '/accounts/login/'
