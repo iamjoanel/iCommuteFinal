@@ -92,7 +92,7 @@
       });
     });
 </script>
-<div class="viewRouteContainer">
+<div class="container">
     <h3>
         <i>From </i>{{ route.origin|title}},{{ route.origin_city|title }} <i>To </i>{{ route.destination|title}},{{ route.destination_city|title }} <br>
         <small>Contributed By: {{ route.created_by.username }}</small>
@@ -135,9 +135,7 @@
                         <th width="300">Mode</th>
                         <th width="300">Origin</th>
                         <th width="300">Destination</th>
-                        <th width="300">Cost</th>
-                        <th width="300">Distance</th>
-                        <th width="300">Time</th>
+                                              
                     </tr>
                 </thead>
                 <tbody>
@@ -146,9 +144,6 @@
                       <td>{{ path.mode|title }}</td>
                       <td>{{ path.origin_point|title }}</td>
                       <td>{{ path.destination_point|title }}</td>
-                      <td>PHP {{ path.cost }}</td>
-                      <td>{{ path.time|time:"H:i:s"}}</td>
-                      <td>{{ path.distance }} KM</td>
                     </tr>
                   {% endfor %}
                   {% for path in route.train_path.all %}
@@ -156,6 +151,33 @@
                       <td>Train</td>
                       <td>{{ path.origin_station }}</td>
                       <td>{{ path.destination_station }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="twelve columns">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="300">Cost</th>
+                        <th width="300">Time</th>
+                        <th width="300">Distance</th> 
+                                              
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for path in route.path.all %}
+                    <tr>
+                      <td>PHP {{ path.cost }}</td>
+                      <td>{{ path.time|time:"H:i:s"}}</td>
+                      <td>{{ path.distance }} KM</td>
+                      
+                    </tr>
+                  {% endfor %}
+                  {% for path in route.train_path.all %}
+                    <tr>
                       <td>PHP {{ path.cost }}</td>
                       <td>{{ path.time|time:"H:i:s"}}</td>
                       <td>{{ path.distance }} KM</td>
@@ -164,6 +186,7 @@
                 </tbody>
             </table>
         </div>
+
     </div>
     <div class="row">
         <div class="twelve columns">
