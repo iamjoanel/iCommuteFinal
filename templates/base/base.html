@@ -1,10 +1,19 @@
 {% load staticfiles %}
+
 <!DOCTYPE html>
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+
+
+
     <head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<!-- IE Fix for HTML5 Tags -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
         <meta charset="utf-8" />
-          <link rel="shortcut icon" href="http://www.favicongenerator.com/favicon2/iCommute-20130715-favicon.ico">
+        <link rel="shortcut icon" href="http://www.favicongenerator.com/favicon2/iCommute-20130715-favicon.ico">
         <meta name="viewport" content="width=device-width, user-scalable=false;" />
         <title>
             iCommute
@@ -16,7 +25,8 @@
         <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
         <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
         <link rel="stylesheet" href="{% static 'css/app.css' %}" />
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/fix.css' %}" />
+	<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
         <script src="{% static 'admin/js/OpenLayers.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/vendor/custom.modernizr.js' %}"></script>

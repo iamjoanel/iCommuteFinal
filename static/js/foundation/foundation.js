@@ -26,6 +26,10 @@ if (typeof jQuery === "undefined" &&
   throw new TypeError();
 }
 
+if (!navigator.userAgent.match(/MSIE 8/i)) {
+$(document).foundation('topbar');
+}
+
 (function ($, window, document, undefined) {
   'use strict';
 

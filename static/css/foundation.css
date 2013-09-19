@@ -5,6 +5,11 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+lt-ie9 .top-bar-section .top-bar-menu li:hover .dropdown {
+visibility: visible;
+}
+
+
 html,
 body {
   font-size: 100%;
