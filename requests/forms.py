@@ -9,10 +9,10 @@ class RequestForm(forms.ModelForm):
         excludes = ('is_done', 'requested', )
         widgets = {
             'origin': forms.TextInput(attrs=
-                  {'type': "text", 'placeholder': "Origin", 'class': 'text input'}
+                  {'type': "text", 'placeholder': "Origin", 'class': 'text input', 'id': 'search-origin'}
             ),
             'destination': forms.TextInput(attrs=
-            {'type': "text", 'placeholder': "Destination", 'class': 'text input'}
+            {'type': "text", 'placeholder': "Destination", 'class': 'text input', 'id': 'search-destination'}
             ),
             'count': forms.HiddenInput(),
         }
@@ -24,10 +24,10 @@ class MobileRequestForm(forms.ModelForm):
         excludes = ('is_done', 'requested', )
         widgets = {
             'origin': forms.TextInput(attrs=
-                  {'type': "text", 'placeholder': "Origin", 'class': 'input'}
+                  {'type': "text", 'placeholder': "Origin", 'class': 'input', 'id': 'search-origin'}
             ),
             'destination': forms.TextInput(attrs=
-            {'type': "text", 'placeholder': "Destination", 'class': 'input'}
+            {'type': "text", 'placeholder': "Destination", 'class': 'input', 'id': 'search-destination'}
             ),
             'count': forms.HiddenInput(),
         }
