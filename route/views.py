@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import (render_to_response, redirect, get_object_or_404)
 from django.template import RequestContext
 from django.contrib import messages
@@ -8,6 +9,7 @@ from vectorformats.Formats import Django, GeoJSON
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.http import HttpResponse
 
 from .forms import (TrainPathForm, PathForm, RouteForm)
 from .models import (TrainPath, Path, Route)
@@ -654,3 +656,41 @@ def search_route(request, template="route/public/route/results.html"):
 
 class ViewError(TemplateView):
     template_name = "route/public/route/error.html"
+
+
+def get_origin(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        routes = Route.objects.filter(origin__icontains = q).filter(is_approved=True)[:20]
+        results = []
+        for route in routes:
+            route_json = {}
+            route_json['id'] = route.pk
+            route_json['label'] = route.origin
+            route_json['id'] = route.origin
+            results.append(route_json)
+        data = json.dumps(results)
+    else:
+        data = 'Fail'
+    mimetype = 'application/json'
+
+    return HttpResponse(data, mimetype)
+
+
+def get_destination(request):
+    if request.is_ajax():
+        q = request.GET.get('term', '')
+        routes = Route.objects.filter(destination__icontains = q).filter(is_approved=True)[:20]
+        results = []
+        for route in routes:
+            route_json = {}
+            route_json['id'] = route.pk
+            route_json['label'] = route.destination
+            route_json['id'] = route.destination
+            results.append(route_json)
+        data = json.dumps(results)
+    else:
+        data = 'Fail'
+    mimetype = 'application/json'
+
+    return HttpResponse(data, mimetype)

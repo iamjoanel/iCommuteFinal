@@ -1,21 +1,38 @@
+<script>
+    $(document).ready(function(){
+        $("#origin").autocomplete({
+            source: "{% url 'get_origin' %}"
+        });
+
+        $("#destination").autocomplete({
+            source: "{% url 'get_destination' %}"
+        });
+    });
+</script>
 <div id="myModal" class="reveal-modal small">
 <h2>Search Route</h2>
     <form action="{% url 'search_route' %}" method="get">
         {% csrf_token %}
         <div class="row">
-            <div class="small-2 columns">
-                <label for="origin" class="inline">Origin</label>
-            </div>
-            <div class="small-9 columns">
-                <input type="text" name="origin" id="origin" placeholder="Origin">
-            </div>
+                <div class="small-2 columns">
+                    <label for="origin" class="inline">Origin</label>
+                </div>
+                <div class="small-9 columns">
+                    <div class="ui-widget">
+                    <input type="text" name="origin" id="origin" placeholder="Origin">
+                    </div>
+                </div>
         </div>
         <div class="row">
-            <div class="small-2 columns">
-                <label for="destination" class="inline">Destination</label>
-            </div>
-            <div class="small-9 columns">
-                <input type="text" name="destination" id="destination" placeholder="Destination">
+            <div class="ui-widget">
+                <div class="small-2 columns">
+                    <label for="destination" class="inline">Destination</label>
+                </div>
+                <div class="small-9 columns">
+                    <div class="ui-widget">
+                        <input type="text" name="destination" id="destination" placeholder="Destination">
+                    </div>
+                </div>
             </div>
         </div>
 

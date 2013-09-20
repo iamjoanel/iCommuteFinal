@@ -22,7 +22,6 @@
 			- {{ titles }}
 		{% endif %}
 	</title>
-	<script src="http://maps.googleapis.com/maps/api/js?sensor=false&amp;libraries=places" type="text/javascript"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
 	<!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
@@ -37,16 +36,14 @@
 	<script type="text/javascript" src="{% static 'js/js.responsivetable.js' %}"></script>
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 
-
+	        <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" media="all" />
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 </head>
 
 <body>
 
 	{% include "includes/mobile-nav.html" %}
-<!--	<script type="text/javascript">
-		$(document).ready(function(){
-			$('table').responsiveTable();
-}); -->
 	</script>
 	{% block content %}
 

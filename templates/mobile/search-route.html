@@ -1,6 +1,20 @@
 {% extends "base/base-mobile-user.html" %}
 
 {% block content %}
+<script>
+    var $j = jQuery.noConflict();
+
+    $j(document).ready(function(){
+        $j("#origin").autocomplete({
+            source: "{% url 'get_origin' %}"
+        });
+
+        $j("#destination").autocomplete({
+            source: "{% url 'get_destination' %}"
+        });
+
+    });
+</script>
 <div class="row container">
     <div class="twelve columns">
         <h2>Search Route</h2>
@@ -24,7 +38,9 @@
                     <label for="origin">Origin</label>
                 </div>
                 <div class="eight columns field">
-                    <input class="input" type="text" name="origin" id="origin" placeholder="Origin">
+                    <div class="ui-widget">
+                        <input class="input" type="text" name="origin" id="origin" placeholder="Origin">
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -32,7 +48,9 @@
                     <label for="destination">Destination</label>
                 </div>
                 <div class="eight columns field">
-                    <input class="input" type="text" name="destination" id="destination" placeholder="Destination">
+                    <div class="ui-widget">
+                        <input class="input" type="text" name="destination" id="destination" placeholder="Destination">
+                    </div>
                 </div>
             </div>
             <div class="primary btn medium centered ten columns">

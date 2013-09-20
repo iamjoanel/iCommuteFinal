@@ -19,4 +19,7 @@ urlpatterns = patterns('route.views',
     url(r'^train_path/add_train_path/$', 'add_train_path', name="add_train_path"),
     url(r'^train_path/edit_train_path/(?P<pk>\d+)/$', 'edit_train_path', name="edit_train_path"),
     url(r'^train_path/delete_train_path/(?P<pk>\d+)/$', DeleteTrainPathView.as_view(), name="delete_train_path"),
+
+    url(r'^get_origin/', 'get_origin', name="get_origin"),
+    url(r'^get_destination/', 'get_destination', name="get_destination"),
 )
