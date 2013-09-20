@@ -1,6 +1,25 @@
 {% extends "base/base.html" %}
 
 {% block content %}
+<script type="text/javascript">
+    function initialize(){
+        var options = {
+            componentRestrictions: {country: "ph"
+
+                                }
+        };
+        var origin = document.getElementById('search-origin');
+        var autocomplete = new google.maps.places.Autocomplete(origin, options);
+        var destination = document.getElementById('search-destination');
+        var autocomplete = new google.maps.places.Autocomplete(destination, options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<style type="text/css">
+    .pac-container:after{ content:none !important; }
+</style>
 {% if messages %}
     <section id="messages">
         {% for message in messages %}
