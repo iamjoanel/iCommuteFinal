@@ -661,7 +661,7 @@ class ViewError(TemplateView):
 def get_origin(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        routes = Route.objects.filter(origin__icontains = q).filter(is_approved=True)[:20]
+        routes = Route.objects.filter(origin__icontains = q).filter(is_approved=True).distinct('origin')[:20]
         results = []
         for route in routes:
             route_json = {}
@@ -680,7 +680,7 @@ def get_origin(request):
 def get_destination(request):
     if request.is_ajax():
         q = request.GET.get('term', '')
-        routes = Route.objects.filter(destination__icontains = q).filter(is_approved=True)[:20]
+        routes = Route.objects.filter(destination__icontains = q).filter(is_approved=True).distinct('destination')[:20]
         results = []
         for route in routes:
             route_json = {}
